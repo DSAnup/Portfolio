@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <!-- saved from url=(0051)https://getbootstrap.com/docs/4.0/examples/pricing/ -->
 <html lang="en">
@@ -8,17 +9,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="./images/favicon.ico">
+    <link rel="icon" href="{% static 'core/images/favicon.ico'}">
 
     <title>Anup Mondal</title>
 
     <link href='https://fonts.googleapis.com/css?family=Aldrich' rel='stylesheet'>
 
     <!-- Bootstrap core CSS -->
-    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <link href="{% static 'core/css/bootstrap.min.css' %}" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="./css/style.css" rel="stylesheet">
+    <link href="{% static 'core/css/style.css' %}" rel="stylesheet">
 
 </head>
 
@@ -36,7 +37,7 @@
     <div class="container">
         <div class="row">
             <div class="offset-md-3 col-md-6 text-center">
-                <img src="./images/me221.jpg" class="img-fluid" alt="Responsive image">
+                <img src="{% static 'core/images/me221.jpg' %}" class="img-fluid" alt="Responsive image">
                 <h2 class="myname">Hi, I'm Anup Mondal</h2>
                 <h5 class="designation">Application Developer . Data Science Enthusiast</h5>
                 <p>I am interested to solve real world problems across different domains.</p>
@@ -46,15 +47,15 @@
         <div class="row">
             <div class="offset-md-3 col-md-6 text-center">
                 <a href="https://github.com/DSAnup" target="_blank" class="btn btn-sm btn-outline-dark mr-2 mt-3"><img
-                        class="social-image mr-1" src="./images/icon/github.png">GitHub</a>
+                        class="social-image mr-1" src="{% static 'core/images/icon/github.png' %}">GitHub</a>
                 <a href="https://www.facebook.com/dscanup" target="_blank"
                     class="btn btn-sm btn-outline-dark mr-2 mt-3"><img class="social-image mr-1"
-                        src="./images/icon/fb.png">Facebook</a>
+                        src="{% static 'core/images/icon/fb.png' %}">Facebook</a>
                 <a href="https://www.linkedin.com/in/DSAnup" target="_blank"
                     class="btn btn-sm btn-outline-dark mr-2 mt-3"><img class="social-image mr-1"
-                        src="./images/icon/lnkdn.png">LinkedIn</a>
+                        src="{% static 'core/images/icon/lnkdn.png' %}">LinkedIn</a>
                 <a href="mailto:anup12.m@gmail.com" target="_blank" class="btn btn-sm btn-outline-dark mr-2 mt-3"><img
-                        class="social-image mr-1" src="./images/icon/gmail.png">Email</a>
+                        class="social-image mr-1" src="{% static 'core/images/icon/gmail.png' %}">Email</a>
             </div>
         </div>
     </div>
@@ -83,7 +84,7 @@
                     <div class="card ai-header-card">
                         <div class="row">
                             <div class="col-md-2">
-                                <img class="experience-image" src="./images/icon/bondstein.png">
+                                <img class="experience-image" src="{% static 'core/images/icon/bondstein.png' %}">
                             </div>
                             <div class="col-md-10 text-left">
                                 <div class="experience-title">
@@ -148,7 +149,7 @@
                     <div class="card ai-header-card">
                         <div class="row">
                             <div class="col-md-2">
-                                <img class="experience-image" src="./images/icon/utshob.png">
+                                <img class="experience-image" src="{% static 'core/images/icon/utshob.png' %}">
                             </div>
                             <div class="col-md-10 text-left">
                                 <div class="experience-title">
@@ -214,7 +215,7 @@
                     <div class="card ai-header-card">
                         <div class="row">
                             <div class="col-md-2">
-                                <img class="experience-image" src="./images/icon/youthfireit.png">
+                                <img class="experience-image" src="{% static 'core/images/icon/youthfireit.png' %}">
                             </div>
                             <div class="col-md-10 text-left">
                                 <div class="experience-title">
@@ -304,7 +305,7 @@
                     <div class="card ai-header-card">
                         <div class="row">
                             <div class="col-md-2">
-                                <img class="experience-image" src="./images/icon/adust.png">
+                                <img class="experience-image" src="{% static 'core/images/icon/adust.png' %}">
                             </div>
                             <div class="col-md-10 text-left">
                                 <div class="experience-title">
@@ -341,55 +342,56 @@
                         <div class="col-md-2">
                             <div class="w3-light-grey">
                                 <div class="w3-grey" style="height:24px;width:75%"><img class="skills-image mr-1"
-                                        src="./images/icon/php.png"><span>PHP</span></div>
+                                        src="{% static 'core/images/icon/php.png' %}"><span>PHP</span></div>
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="w3-light-grey">
                                 <div class="w3-grey" style="height:24px;width:80%"><img class="skills-image mr-1"
-                                        src="./images/icon/python.png"><span>Python</span></div>
+                                        src="{% static 'core/images/icon/python.png' %}"><span>Python</span></div>
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="w3-light-grey">
                                 <div class="w3-grey" style="height:24px;width:75%"><img class="skills-image mr-1"
-                                        src="./images/icon/mysql.png"><span>MySql</span></div>
+                                        src="{% static 'core/images/icon/mysql.png' %}"><span>MySql</span></div>
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="w3-light-grey">
                                 <div class="w3-grey" style="height:24px;width:70%"><img class="skills-image mr-1"
-                                        src="./images/icon/codeigniter.png"><span>CodeIgniter</span></div>
+                                        src="{% static 'core/images/icon/codeigniter.png' %}"><span>CodeIgniter</span>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="w3-light-grey">
                                 <div class="w3-grey" style="height:24px;width:80%"><img class="skills-image mr-1"
-                                        src="./images/icon/django.png"><span>Django</span></div>
+                                        src="{% static 'core/images/icon/django.png' %}"><span>Django</span></div>
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="w3-light-grey">
                                 <div class="w3-grey" style="height:24px;width:90%"><img class="skills-image mr-1"
-                                        src="./images/icon/git.png"><span>Git</span></div>
+                                        src="{% static 'core/images/icon/git.png' %}"><span>Git</span></div>
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="w3-light-grey">
                                 <div class="w3-grey" style="height:24px;width:75%"><img class="skills-image mr-1"
-                                        src="./images/icon/postgre.png"><span>PostgreSql</span></div>
+                                        src="{% static 'core/images/icon/postgre.png' %}"><span>PostgreSql</span></div>
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="w3-light-grey">
                                 <div class="w3-grey" style="height:24px;width:95%"><img class="skills-image mr-1"
-                                        src="./images/icon/sphp.png"><span>sPHP</span></div>
+                                        src="{% static 'core/images/icon/sphp.png' %}"><span>sPHP</span></div>
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="w3-light-grey">
                                 <div class="w3-grey" style="height:24px;width:65%"><img class="skills-image mr-1"
-                                        src="./images/icon/datascience.png"><span>Data</span></div>
+                                        src="{% static 'core/images/icon/datascience.png' %}"><span>Data</span></div>
                             </div>
                         </div>
                     </div>
@@ -421,7 +423,8 @@
                             <div class="col-md-3">
                                 <div class="card ai-project-card">
                                     <a href="https://www.hackerrank.com/certificates/4ac998c27e93" target="_blank">
-                                        <img class="ai-project-image" src="./images/certification/pythonbasic.png">
+                                        <img class="ai-project-image"
+                                            src="{% static 'core/images/certification/pythonbasic.png' %}">
                                     </a>
                                     <div class="card-body">
                                         <h4>Python (Basic)</h4>
@@ -441,7 +444,7 @@
                                 <div class="card ai-project-card">
                                     <a href="https://www.hackerrank.com/certificates/aef6d77a3136" target="_blank">
                                         <img class="ai-project-image"
-                                            src="./images/certification/pythonintermediate.png">
+                                            src="{% static 'core/images/certification/pythonintermediate.png' %}">
                                     </a>
                                     <div class="card-body">
                                         <h4>Python (Intermediate)</h4>
@@ -460,7 +463,8 @@
                             <div class="col-md-3">
                                 <div class="card ai-project-card">
                                     <a href="https://www.hackerrank.com/certificates/94dac8b81b6e" target="_blank">
-                                        <img class="ai-project-image" src="./images/certification/pythonadvanced.png">
+                                        <img class="ai-project-image"
+                                            src="{% static 'core/images/certification/pythonadvanced.png' %}">
                                     </a>
                                     <div class="card-body">
                                         <h4>Python (Advanced)</h4>
@@ -479,7 +483,8 @@
                             <div class="col-md-3">
                                 <div class="card ai-project-card">
                                     <a href="https://www.hackerrank.com/certificates/4d1173e7d1fb" target="_blank">
-                                        <img class="ai-project-image" src="./images/certification/pythonproblem.png">
+                                        <img class="ai-project-image"
+                                            src="{% static 'core/images/certification/pythonproblem.png' %}">
                                     </a>
                                     <div class="card-body">
                                         <h4>Problem Solving (Basic)</h4>
@@ -499,7 +504,8 @@
                                 <div class="card ai-project-card">
                                     <a href="https://www.youracclaim.com/badges/96141d15-504f-4722-bdd7-edf7280f80b2"
                                         target="_blank">
-                                        <img class="ai-project-image" src="./images/certification/datavizpython.png">
+                                        <img class="ai-project-image"
+                                            src="{% static 'core/images/certification/datavizpython.png' %}">
                                     </a>
                                     <div class="card-body">
                                         <h4>Data Visualization Using Python</h4>
@@ -520,7 +526,8 @@
                                 <div class="card ai-project-card">
                                     <a href="https://www.youracclaim.com/badges/67812497-c901-4655-8516-ec0cba744282"
                                         target="_blank">
-                                        <img class="ai-project-image" src="./images/certification/datascience1.png">
+                                        <img class="ai-project-image"
+                                            src="{% static 'core/images/certification/datascience1.png' %}">
                                     </a>
                                     <div class="card-body">
                                         <h4>Python for Data Science</h4>
@@ -541,7 +548,8 @@
                                 <div class="card ai-project-card">
                                     <a href="https://www.youracclaim.com/badges/cb6c125c-7400-415d-865f-ad52e223810f"
                                         target="_blank">
-                                        <img class="ai-project-image" src="./images/certification/datascience2.png">
+                                        <img class="ai-project-image"
+                                            src="{% static 'core/images/certification/datascience2.png' %}">
                                     </a>
                                     <div class="card-body">
                                         <h4>Applied Data Science with Python - Level 2</h4>
@@ -562,7 +570,8 @@
                                 <div class="card ai-project-card">
                                     <a href="https://www.youracclaim.com/badges/0d7f3855-4da9-4ea1-acfd-f62138ee744d"
                                         target="_blank">
-                                        <img class="ai-project-image" src="./images/certification/datavizpython.png">
+                                        <img class="ai-project-image"
+                                            src="{% static 'core/images/certification/datavizpython.png' %}">
                                     </a>
                                     <div class="card-body">
                                         <h4>Statistics</h4>
@@ -595,16 +604,16 @@
                     <hr class="hr">
                     <a href="https://github.com/DSAnup" target="_blank"
                         class="btn btn-sm btn-outline-dark mr-2 mt-3"><img class="social-image mr-1"
-                            src="./images/icon/github.png">GitHub</a>
+                            src="{% static 'core/images/icon/github.png' %}">GitHub</a>
                     <a href="https://www.facebook.com/dscanup" target="_blank"
                         class="btn btn-sm btn-outline-dark mr-2 mt-3"><img class="social-image mr-1"
-                            src="./images/icon/fb.png">Facebook</a>
+                            src="{% static 'core/images/icon/fb.png' %}">Facebook</a>
                     <a href="https://www.linkedin.com/in/DSAnup" target="_blank"
                         class="btn btn-sm btn-outline-dark mr-2 mt-3"><img class="social-image mr-1"
-                            src="./images/icon/lnkdn.png">LinkedIn</a>
+                            src="{% static 'core/images/icon/lnkdn.png' %}">LinkedIn</a>
                     <a href="mailto:anup12.m@gmail.com" target="_blank"
                         class="btn btn-sm btn-outline-dark mr-2 mt-3"><img class="social-image mr-1"
-                            src="./images/icon/gmail.png">Email</a>
+                            src="{% static 'core/images/icon/gmail.png' %}">Email</a>
                 </div>
             </div>
 
@@ -615,9 +624,9 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="./js/jquery.min.js"></script>
+    <script src="{%static 'core/js/jquery.min.js' %}"></script>
 
-    <script src="./js/bootstrap.min.js"></script>
+    <script src="{%static 'core/js/bootstrap.min.js' %}"></script>
 
 
 
