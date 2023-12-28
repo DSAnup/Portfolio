@@ -1,5 +1,5 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/anupmond/portfolio/
+    - export DEPLOYPATH=/home/anupmond/portfolio3/
     - /bin/cp -R images $DEPLOYPATH
