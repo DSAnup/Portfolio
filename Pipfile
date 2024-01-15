@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 django = "==4.2.8"
 mysqlclient = "*"
+django-admin-argon-dashboard = "*"
 
 [dev-packages]
 

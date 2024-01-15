@@ -37,6 +37,7 @@ ALLOWED_HOSTS = ["server.bestcloudns.biz", "127.0.0.1", "portfolio.anupmondal.me
 # Application definition
 
 INSTALLED_APPS = [
+    'admin_argon.apps.AdminArgonConfig',
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -61,7 +62,7 @@ ROOT_URLCONF = "profilesetting.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [os.path.join(BASE_DIR, "templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [

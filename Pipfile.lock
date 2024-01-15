@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "686577f30ec4d9eea8a10d3f1499bb72ce0556ba20cca7187adab7e078de0771"
+            "sha256": "0a4b5bb4d1fc5b4f4616a25029c49d86518ad8ce2fea2ca525772970cf35e1bd"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -31,6 +31,13 @@
             ],
             "index": "pypi",
             "version": "==4.2.8"
+        },
+        "django-admin-argon-dashboard": {
+            "hashes": [
+                "sha256:486b91d53745cb41d8b73c2bf650713a17bcf9d24dd73faa672b85dda11d757c"
+            ],
+            "index": "pypi",
+            "version": "==1.0.16"
         },
         "mysqlclient": {
             "hashes": [
