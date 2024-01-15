@@ -1,0 +1,69 @@
+body {margin:0;font-family:Aldrich}
+
+.hr {
+    margin-top: 2rem;
+    border:2px solid lightgrey;
+}
+.social-image {
+  height: 1.1rem;
+}
+.experience-image{
+  height: 64px;
+  width: 64px;
+}
+.experience-details{
+  cursor: pointer;
+  color: lightgray !important;
+}
+.ai-details{
+  min-height: 235px;
+}
+
+.modal-body .ai-details li{
+  font-size: 12px;
+}
+.w3-light-grey {
+    border: 1px solid #ccc!important;
+}
+.w3-grey{
+    color: #000!important;
+    background-color: #6c757d;
+}
+.w3-grey:hover{
+    color: #000!important;
+    background-color: lightblue !important;
+    cursor: pointer;
+}
+.w3-grey span{
+  font-size: 12px;
+  float: left;
+}
+.skills-image{
+  height: 23px;
+  width: 23px;
+  margin-left: 3px;
+  float: left;
+}
+.col-md-2{
+  padding: 5px;
+}
+.footer{
+  height: 150px;
+}
+.ai-section-title{
+  margin: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  border-bottom: 2px solid lightblue;
+}
+.ai-project-image{
+  height: 200px;
+  width: 250px
+}
+.ai-project-card{
+  min-height: 375px;
+  margin:2px;
+}
+.ai-project-card .card-body h4{
+  font-size: 19px;
+}
