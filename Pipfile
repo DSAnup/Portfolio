@@ -7,6 +7,7 @@ name = "pypi"
 django = "==4.2.8"
 mysqlclient = "*"
 django-admin-argon-dashboard = "*"
+whitenoise = "*"
 
 [dev-packages]
 
