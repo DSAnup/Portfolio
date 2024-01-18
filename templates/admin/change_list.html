@@ -25,7 +25,6 @@
 {{ block.super }}
 {{ media.js }}
 {% endblock %}
-
 {% if not is_popup %}
 {% block breadcrumbs %}
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
@@ -58,6 +57,7 @@
 
 
 {% block content %}
+
 <div class="table-settings mb-4 mx-3">
     <div class="row align-items-center justify-content-between">
         <div class="col col-md-8 col-lg-3 col-xl-8">
@@ -76,7 +76,21 @@
 </div>
 
 <div class="row mx-2">
-    <div class="{% if cl.has_filters %}col-md-10{% else %}col-md-12{% endif %}">
+    <div class="{% if cl.has_filters %}col-md-10{% else %}col-md-12{% endif %}">   
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == "success" %}
+                    <div class="text-primary" style="background-color: white;">
+                        {{ message }}
+                    </div>
+                {% endif %}
+                {% if message.tags == "error" %}
+                    <div class="text-warning" style="background-color: white;">
+                        {{ message }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
         {% block date_hierarchy %}
         {% if cl.date_hierarchy %}{% date_hierarchy cl %}{% endif %}
         {% endblock %}
