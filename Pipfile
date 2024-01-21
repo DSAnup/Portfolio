@@ -6,8 +6,11 @@ name = "pypi"
 [packages]
 django = "==4.2.8"
 mysqlclient = "*"
-django-admin-argon-dashboard = "*"
 whitenoise = "*"
+pillow = "*"
+django-debug-toolbar = "*"
+django-admin-argon-dashboard = "*"
+django-ckeditor = "*"
 
 [dev-packages]
 

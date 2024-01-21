@@ -21,4 +21,5 @@ urlpatterns = [
     path("", include("profilemodule.urls")),
     path("admin/", admin.site.urls),
     path('argon/', include("admin_argon.urls")),
+    path("__debug__/", include("debug_toolbar.urls")),
 ]
