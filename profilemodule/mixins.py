@@ -22,17 +22,10 @@ class CustomSaveModelMixin:
             obj.created_by = request.user.id
             obj.save()
 
-class CustomGetQuerySetMixin:
-    
+class CustomGetQuerySetMixin: 
     def get_queryset(self, request):
-        # Customize the queryset based on your condition
         queryset = super().get_queryset(request)
-        if request.user.username == 'anup':
-            queryset = queryset.filter(created_by=request.user.pk)
-            if queryset.count() > 0:
-                self.has_add_permission = lambda request: False
-            return queryset
-        elif request.user.username == 'pronoy':
+        if not request.user.is_superuser:
             queryset = queryset.filter(created_by=request.user.pk)
             if queryset.count() > 0:
                 self.has_add_permission = lambda request: False

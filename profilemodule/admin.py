@@ -8,29 +8,16 @@ from .mixins import *
 admin.site.site_header = 'Profile Administration Login'
 
 @admin.register(TemplateSettings)
-class TemplateSettingsAdmin(CustomSaveModelMixin, admin.ModelAdmin):
+class TemplateSettingsAdmin(CustomAddPermissionMixin, CustomSaveModelMixin, CustomGetQuerySetMixin, admin.ModelAdmin):
     fields = ['template', 'website_name']
     list_display = ['template', 'website_name']
     ordering = ['pk']
-    readonly_fields = []
-
-    def get_queryset(self, request):
-        # Customize the queryset based on your condition
-        queryset = super().get_queryset(request)
-        if request.user.username == 'anup':
-            queryset = queryset.filter(website_name='anupmondal.me')
-            self.readonly_fields += ['website_name']
-            if queryset.count() > 0:
-                self.has_add_permission = lambda request: False
-            return queryset
-        elif request.user.username == 'pronoy':
-            queryset = queryset.filter(website_name='pronoymondal.me')
-            self.readonly_fields += ['website_name']
-            if queryset.count() > 0:
-                self.has_add_permission = lambda request: False
-            return queryset
+    
+    def get_readonly_fields(self, request, obj=None):
+        if not request.user.is_superuser: 
+            return ['website_name']
         else:
-            return queryset      
+            return []
 
 @admin.register(About)
 class AboutAdmin(CustomAddPermissionMixin, CustomSaveModelMixin, CustomGetQuerySetMixin, admin.ModelAdmin):
