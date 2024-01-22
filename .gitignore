@@ -162,3 +162,5 @@ cython_debug/
 #  ignore my apps files
 .vscode/
 static/
+media/
+migrations/

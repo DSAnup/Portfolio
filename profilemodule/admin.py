@@ -2,30 +2,38 @@ from django.contrib import admin
 from django.utils import timezone
 from profilemodule.models import *
 from ckeditor.widgets import CKEditorWidget
+from .mixins import *
 
 # Register your models here.
 admin.site.site_header = 'Profile Administration Login'
 
 @admin.register(TemplateSettings)
-class TemplateSettingsAdmin(admin.ModelAdmin):
+class TemplateSettingsAdmin(CustomSaveModelMixin, admin.ModelAdmin):
     fields = ['template', 'website_name']
     list_display = ['template', 'website_name']
     ordering = ['pk']
+    readonly_fields = []
 
-    def save_model(self, request, obj, form, change):
-        if change:
-            existing_obj = TemplateSettings.objects.get(pk=obj.pk)
-            obj.created_at = existing_obj.created_at
-            obj.updated_at = timezone.now()
-            obj.created_by = existing_obj.created_by
-            obj.updated_by = request.user.id
-            obj.save()
+    def get_queryset(self, request):
+        # Customize the queryset based on your condition
+        queryset = super().get_queryset(request)
+        if request.user.username == 'anup':
+            queryset = queryset.filter(website_name='anupmondal.me')
+            self.readonly_fields += ['website_name']
+            if queryset.count() > 0:
+                self.has_add_permission = lambda request: False
+            return queryset
+        elif request.user.username == 'pronoy':
+            queryset = queryset.filter(website_name='pronoymondal.me')
+            self.readonly_fields += ['website_name']
+            if queryset.count() > 0:
+                self.has_add_permission = lambda request: False
+            return queryset
         else:
-            obj.created_by = request.user.id
-            obj.save()
+            return queryset      
 
 @admin.register(About)
-class AboutAdmin(admin.ModelAdmin):
+class AboutAdmin(CustomAddPermissionMixin, CustomSaveModelMixin, CustomGetQuerySetMixin, admin.ModelAdmin):
     
     fieldsets = (
         (
@@ -47,4 +55,3 @@ class AboutAdmin(admin.ModelAdmin):
     }
 
     list_display = ['full_name', 'designation']
-   
