@@ -7,7 +7,7 @@ from .mixins import *
 admin.site.site_header = 'Profile Administration Login'
 
 @admin.register(TemplateSettings)
-class TemplateSettingsAdmin(CustomAddPermissionMixin, CustomSaveModelMixin, CustomGetQuerySetMixin, admin.ModelAdmin):
+class TemplateSettingsAdmin(admin.ModelAdmin, CustomAddPermissionMixin, CustomSaveModelMixin, CustomGetQuerySetMixin):
     fields = ['template', 'website_name']
     list_display = ['template', 'website_name']
     ordering = ['pk']
@@ -19,7 +19,7 @@ class TemplateSettingsAdmin(CustomAddPermissionMixin, CustomSaveModelMixin, Cust
             return []
 
 @admin.register(About)
-class AboutAdmin(CustomAddPermissionMixin, CustomSaveModelMixin, CustomGetQuerySetMixin, RemoveExistingFilesMixinAbout, admin.ModelAdmin):
+class AboutAdmin(admin.ModelAdmin, CustomAddPermissionMixin, CustomSaveModelMixin, CustomGetQuerySetMixin, RemoveExistingFilesMixinAbout):
     
     fieldsets = (
         (
