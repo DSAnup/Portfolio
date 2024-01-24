@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "profilemodule",
     "debug_toolbar",
     'ckeditor',
+    'imagekit',
 ]
 
 MIDDLEWARE = [

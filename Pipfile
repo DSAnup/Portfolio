@@ -11,6 +11,7 @@ pillow = "*"
 django-debug-toolbar = "*"
 django-admin-argon-dashboard = "*"
 django-ckeditor = "*"
+django-imagekit = "*"
 
 [dev-packages]
 pytest = "*"
