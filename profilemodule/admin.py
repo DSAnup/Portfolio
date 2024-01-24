@@ -19,7 +19,7 @@ class TemplateSettingsAdmin(CustomAddPermissionMixin, CustomSaveModelMixin, Cust
             return []
 
 @admin.register(About)
-class AboutAdmin(CustomAddPermissionMixin, CustomSaveModelMixin, CustomGetQuerySetMixin, admin.ModelAdmin):
+class AboutAdmin(CustomAddPermissionMixin, CustomSaveModelMixin, CustomGetQuerySetMixin, RemoveExistingFilesMixinAbout, admin.ModelAdmin):
     
     fieldsets = (
         (
