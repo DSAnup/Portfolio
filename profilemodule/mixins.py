@@ -4,6 +4,7 @@ from django.dispatch import receiver
 from django.utils import timezone
 import os
 from .models import *
+from ckeditor.widgets import CKEditorWidget
 
 class CustomAddPermissionMixin:
     def has_add_permission(self, request):
@@ -34,6 +35,11 @@ class CustomGetQuerySetMixin:
             return queryset
         else:
             return queryset 
+        
+class CustomTextEditor:
+    formfield_overrides = {
+        models.TextField: {"widget": CKEditorWidget},
+    }
 
 class RemoveExistingFilesMixinAbout:
     @receiver(pre_save, sender=About)

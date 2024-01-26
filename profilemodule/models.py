@@ -169,6 +169,7 @@ class Training(models.Model):
         return self.training_type
 
 class Award(models.Model):
+    
     award_details = models.TextField()
     created_by = models.IntegerField(blank=True, null=True)
     updated_by = models.IntegerField(blank=True, null=True)
