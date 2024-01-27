@@ -5,6 +5,7 @@ from django.utils import timezone
 import os
 from .models import *
 from ckeditor.widgets import CKEditorWidget
+from django.utils.html import format_html
 
 class CustomAddPermissionMixin:
     def has_add_permission(self, request):
@@ -41,6 +42,12 @@ class CustomTextEditor:
         models.TextField: {"widget": CKEditorWidget},
     }
 
+class CustomShortTextFields:
+    def short_text_field(obj, field_name, max_length):
+        value = getattr(obj, field_name)
+        return format_html(value[:max_length] + '...') if len(value) > max_length else value
+    
+    
 class RemoveExistingFilesMixinAbout:
     @receiver(pre_save, sender=About)
     def delete_existing_image(sender, instance, **kwargs):

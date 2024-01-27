@@ -1,10 +1,12 @@
 from django.contrib import admin
 from profilemodule.models import *
-from ckeditor.widgets import CKEditorWidget
 from .mixins import *
 
 # Register your models here.
 admin.site.site_header = 'Profile Administration Login'
+
+
+
 
 @admin.register(TemplateSettings)
 class TemplateSettingsAdmin(CustomAddPermissionMixin, CustomSaveModelMixin, CustomGetQuerySetMixin, admin.ModelAdmin):
@@ -36,7 +38,17 @@ class AboutAdmin(CustomAddPermissionMixin, CustomSaveModelMixin, CustomGetQueryS
          ),
     )  
 
-    list_display = ['full_name', 'designation']   
+    list_display = ['full_name', 'designation', 'about_me_short', 'display_image']
+
+    def about_me_short(self, obj):
+        return CustomShortTextFields.short_text_field(obj, 'about_me', 50)
+    
+    about_me_short.short_description = 'About Me'
+
+    def display_image(self, obj):
+        return format_html('<img src="{}" width="50" height="50" />'.format(obj.profile_picture.url))
+
+    display_image.short_description = 'Image'
 
 @admin.register(SocialPlatform)
 class SocialPlatformAdmin(CustomAddPermissionMixin, admin.ModelAdmin):
@@ -97,3 +109,4 @@ class AwardAdmin(CustomAddPermissionMixin, CustomTextEditor, admin.ModelAdmin):
     
     fields = ['award_details']
     list_display = ['award_details']
+
