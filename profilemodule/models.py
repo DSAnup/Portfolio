@@ -50,7 +50,8 @@ class About(models.Model):
 class SocialPlatform(models.Model):
 
     social_platform_name = models.CharField(max_length=50)
-    social_platform_icon = models.CharField(max_length=50,  blank=True, null=True)
+    social_platform_icon = ProcessedImageField(upload_to='icon', validators=[FileExtensionValidator(allowed_extensions=['jpg', 'png', 'jpeg'])], options={'quality':90}, blank=True, null=True)
+    social_platform_iconname = models.CharField(max_length=50,  blank=True, null=True)
     social_platform_url = models.CharField(max_length=70,  blank=True, null=True)
     created_by = models.IntegerField(blank=True, null=True)
     updated_by = models.IntegerField(blank=True, null=True)

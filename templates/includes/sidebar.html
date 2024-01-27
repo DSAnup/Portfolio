@@ -11,12 +11,50 @@
     </a>
   </div>
   <hr class="horizontal dark mt-0">
-  <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
+  <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main" style="height: auto;">
     <ul class="navbar-nav">
+      <li class="nav-item">
+        {% if request.user.is_superuser %}
+        <a href="{% url 'admin:index' %}" class="nav-link {% if 'index' in segment %} active {% endif %}">
+          {% else %}
+          <a href="{% url 'index' %}" class="nav-link {% if 'index' in segment %} active {% endif %}">
+            {% endif %}
+            <div
+              class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni ni-tv-2 text-primary text-sm opacity-10"></i>
+            </div>
+            <span class="nav-link-text ms-1">Dashboard</span>
+          </a>
+      </li>
       {% admin_get_menu as app_list %}
       {% if app_list %}
       {% for app in app_list %}
       {% if app.has_perms and not app.pinned %}
+      {% if not request.user.is_superuser %}
+      <li class="nav-item">
+        {% if  app.models %}
+          <ul class="flex-column nav">
+            {% for model in app.models %}
+            {% if model.url %}
+            <li
+              class="nav-item list-unstyled">
+              <a class="nav-link {% if 'bootstrap-tables' in segment or model.url in request.path|urlencode %} active {% endif %}" href="{{ model.url }}">
+                <div
+                  class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                  <i class="ni ni-tv-2 text-primary text-sm opacity-10"></i>
+                </div>
+                <span class="nav-link-text ms-1">{{ model.label }}</span>
+              </a>
+            </li>
+            {% else %}
+            <li class="nav-item list-unstyled">{{ model.label }}</li>
+            {% endif %}
+            {% endfor %}
+          </ul>
+          
+        {% endif %}
+      </li>
+      {% else %}
       <li class="nav-item">
         {% comment %} <span
           class="nav-link{% if app_label != app.label and app.url not in request.path|urlencode  %} collapsed{% endif %} text-white"
@@ -61,66 +99,12 @@
           </ul>
         </div>
         {% endif %}
-      </li>
+      </li> 
+      {% endif %}
       {% endif %}
       {% endfor %}
       {% endif %}
 
-      <li class="nav-item">
-        {% if request.user.is_superuser %}
-        <a href="{% url 'admin:index' %}" class="nav-link {% if 'index' in segment %} active {% endif %}">
-          {% else %}
-          <a href="{% url 'index' %}" class="nav-link {% if 'index' in segment %} active {% endif %}">
-            {% endif %}
-            <div
-              class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-tv-2 text-primary text-sm opacity-10"></i>
-            </div>
-            <span class="nav-link-text ms-1">Dashboard</span>
-          </a>
-      </li>
-
-      {% if request.user.is_authenticated and not request.user.is_superuser %}
-      <li class="nav-item">
-        <a class="nav-link " href="{% url 'tables' %}">
-          <div
-            class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-            <i class="ni ni-calendar-grid-58 text-warning text-sm opacity-10"></i>
-          </div>
-          <span class="nav-link-text ms-1">Tables</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link " href="{% url 'billing' %}">
-          <div
-            class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-            <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
-          </div>
-          <span class="nav-link-text ms-1">Billing</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link " href="{% url 'vr' %}">
-          <div
-            class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-            <i class="ni ni-app text-info text-sm opacity-10"></i>
-          </div>
-          <span class="nav-link-text ms-1">Virtual Reality</span>
-        </a>
-      </li>
-      <li class="nav-item mt-3">
-        <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link " href="{% url 'profile' %}">
-          <div
-            class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-            <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
-          </div>
-          <span class="nav-link-text ms-1">Profile</span>
-        </a>
-      </li>
-      {% endif %}
     </ul>
   </div>
 </aside>

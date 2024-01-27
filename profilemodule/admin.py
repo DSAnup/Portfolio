@@ -2,11 +2,9 @@ from django.contrib import admin
 from profilemodule.models import *
 from .mixins import *
 
-# Register your models here.
 admin.site.site_header = 'Profile Administration Login'
 
-
-
+# Register your models here.
 
 @admin.register(TemplateSettings)
 class TemplateSettingsAdmin(CustomAddPermissionMixin, CustomSaveModelMixin, CustomGetQuerySetMixin, admin.ModelAdmin):
@@ -38,49 +36,54 @@ class AboutAdmin(CustomAddPermissionMixin, CustomSaveModelMixin, CustomGetQueryS
          ),
     )  
 
-    list_display = ['full_name', 'designation', 'about_me_short', 'display_image']
-
-    def about_me_short(self, obj):
-        return CustomShortTextFields.short_text_field(obj, 'about_me', 50)
-    
-    about_me_short.short_description = 'About Me'
-
-    def display_image(self, obj):
-        return format_html('<img src="{}" width="50" height="50" />'.format(obj.profile_picture.url))
-
-    display_image.short_description = 'Image'
+    list_display = ['full_name', 'designation', 'mobile', 'title', 'email']
 
 @admin.register(SocialPlatform)
-class SocialPlatformAdmin(CustomAddPermissionMixin, admin.ModelAdmin):
+class SocialPlatformAdmin(CustomAddPermissionMixin, RemoveExistingFilesMixinSocialPlatform, admin.ModelAdmin):
     
     fields = ['social_platform_name', 'social_platform_icon', 'social_platform_url']
-    list_display = ['social_platform_name', 'social_platform_icon', 'social_platform_url']
+    list_display = ['social_platform_name', 'view_url']
+
+    def view_url(self, obj):
+        return format_html('<a href="{}" target="_blank">Click Here</a>'.format(obj.social_platform_url))
+    
+    view_url.short_description = "Social Link"
 
 
 @admin.register(Experience)
-class ExperienceAdmin(CustomAddPermissionMixin, CustomTextEditor, admin.ModelAdmin):
+class ExperienceAdmin(CustomAddPermissionMixin, CustomTextEditor, RemoveExistingFilesMixinExperience, admin.ModelAdmin):
     
     fields = ['experience_title', 'experience_from', 'experience_from_logo', 'experience_duration', 'experience_details']
-    list_display = ['experience_title', 'experience_from', 'experience_from_logo', 'experience_duration', 'experience_details']
+    list_display = ['experience_title', 'experience_from', 'experience_duration']
 
 
 @admin.register(Education)
-class EducationAdmin(CustomAddPermissionMixin, admin.ModelAdmin):
+class EducationAdmin(CustomAddPermissionMixin, RemoveExistingFilesMixinEducation, admin.ModelAdmin):
     
     fields = ['education_title', 'education_institution_name', 'education_institution_location', 'education_institution_logo', 'education_institution_url', 'education_duration']
-    list_display = ['education_title', 'education_institution_name']
+    list_display = ['education_title', 'education_institution_name', 'education_institution_location']
 
 @admin.register(Skill)
-class SkillAdmin(CustomAddPermissionMixin, admin.ModelAdmin):
+class SkillAdmin(CustomAddPermissionMixin, RemoveExistingFilesMixinSkill, admin.ModelAdmin):
     
     fields = ['skill_name', 'skill_image', 'skill_progress']
-    list_display = ['skill_name', 'skill_image']
+    list_display = ['skill_name', 'display_image']
+    
+    def display_image(self, obj):
+        return format_html('<img src="{}" width="50" height="50" />'.format(obj.skill_image.url))
+
+    display_image.short_description = 'Logo'
 
 @admin.register(Certification)
-class CertificationAdmin(CustomAddPermissionMixin, admin.ModelAdmin):
+class CertificationAdmin(CustomAddPermissionMixin, RemoveExistingFilesMixinCertification, admin.ModelAdmin):
     
     fields = ['certification_title', 'certification_image', 'certification_host', 'certification_url']
-    list_display = ['certification_title', 'certification_image']
+    list_display = ['certification_title', 'certification_host', 'view_url']
+
+    def view_url(self, obj):
+        return format_html('<a href="{}" target="_blank">Click Here</a>'.format(obj.certification_url))
+    
+    view_url.short_description = "Certificate Url"
 
 
 @admin.register(Publication)
@@ -88,25 +91,45 @@ class PublicationAdmin(CustomAddPermissionMixin, CustomTextEditor, admin.ModelAd
     
     fields = ['publication_type', 'publication_url', 'publication_details']
     list_display = ['publication_type', 'publication_url']
+    
+    def view_url(self, obj):
+        return format_html('<a href="{}" target="_blank">Click Here</a>'.format(obj.publication_url))
+    
+    view_url.short_description = "Publication Url"
 
 
 @admin.register(Conference)
 class ConferenceAdmin(CustomAddPermissionMixin, CustomTextEditor, admin.ModelAdmin):
     
     fields = ['conference_details']
-    list_display = ['conference_details']
+    list_display = ['short_text_fields']
+
+    def short_text_fields(self, obj):
+        return CustomShortTextFields.short_text_field(obj, 'conference_details', 150)
+    
+    short_text_fields.short_description = 'Conferenece Details'
 
 
 @admin.register(Training)
 class TrainingAdmin(CustomAddPermissionMixin, CustomTextEditor, admin.ModelAdmin):
     
     fields = ['training_type', 'training_details']
-    list_display = ['training_type', 'training_details']
+    list_display = ['training_type', 'short_text_fields']
+
+    def short_text_fields(self, obj):
+        return CustomShortTextFields.short_text_field(obj, 'training_details', 100)
+    
+    short_text_fields.short_description = 'Training Details'
 
 
 @admin.register(Award)
 class AwardAdmin(CustomAddPermissionMixin, CustomTextEditor, admin.ModelAdmin):
     
     fields = ['award_details']
-    list_display = ['award_details']
+    list_display = ['short_text_fields']
+
+    def short_text_fields(self, obj):
+        return CustomShortTextFields.short_text_field(obj, 'award_details', 150)
+    
+    short_text_fields.short_description = 'Award Details'
 

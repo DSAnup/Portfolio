@@ -46,14 +46,13 @@ class CustomShortTextFields:
     def short_text_field(obj, field_name, max_length):
         value = getattr(obj, field_name)
         return format_html(value[:max_length] + '...') if len(value) > max_length else value
-    
-    
+        
 class RemoveExistingFilesMixinAbout:
     @receiver(pre_save, sender=About)
     def delete_existing_image(sender, instance, **kwargs):
         # Check if the instance has an existing image
         if instance.pk:
-            old_instance = About.objects.get(pk=instance.pk)
+            old_instance = sender.objects.get(pk=instance.pk)
             old_profile_picture = old_instance.profile_picture
             old_title_background = old_instance.title_background
             old_full_cv = old_instance.full_cv
@@ -73,3 +72,68 @@ class RemoveExistingFilesMixinAbout:
                 # Delete the old image file
                 if os.path.isfile(old_full_cv.path):
                     os.remove(old_full_cv.path)
+                       
+class RemoveExistingFilesMixinSocialPlatform:
+    @receiver(pre_save, sender=SocialPlatform)
+    def delete_existing_image(sender, instance, **kwargs):
+        # Check if the instance has an existing image
+        if instance.pk:
+            old_instance = sender.objects.get(pk=instance.pk)
+            old_file = old_instance.social_platform_icon
+
+            if old_file and instance.social_platform_icon != old_file:
+                # Delete the old image file
+                if os.path.isfile(old_file.path):
+                    os.remove(old_file.path)    
+
+class RemoveExistingFilesMixinSkill:
+    @receiver(pre_save, sender=Skill)
+    def delete_existing_image(sender, instance, **kwargs):
+        # Check if the instance has an existing image
+        if instance.pk:
+            old_instance = sender.objects.get(pk=instance.pk)
+            old_file = old_instance.skill_image
+
+            if old_file and instance.skill_image != old_file:
+                # Delete the old image file
+                if os.path.isfile(old_file.path):
+                    os.remove(old_file.path)    
+
+class RemoveExistingFilesMixinCertification:
+    @receiver(pre_save, sender=Certification)
+    def delete_existing_image(sender, instance, **kwargs):
+        # Check if the instance has an existing image
+        if instance.pk:
+            old_instance = sender.objects.get(pk=instance.pk)
+            old_file = old_instance.certification_image
+
+            if old_file and instance.certification_image != old_file:
+                # Delete the old image file
+                if os.path.isfile(old_file.path):
+                    os.remove(old_file.path)
+
+class RemoveExistingFilesMixinExperience:
+    @receiver(pre_save, sender=Experience)
+    def delete_existing_image(sender, instance, **kwargs):
+        # Check if the instance has an existing image
+        if instance.pk:
+            old_instance = sender.objects.get(pk=instance.pk)
+            old_file = old_instance.experience_from_logo
+
+            if old_file and instance.experience_from_logo != old_file:
+                # Delete the old image file
+                if os.path.isfile(old_file.path):
+                    os.remove(old_file.path)
+
+class RemoveExistingFilesMixinEducation:
+    @receiver(pre_save, sender=Education)
+    def delete_existing_image(sender, instance, **kwargs):
+        # Check if the instance has an existing image
+        if instance.pk:
+            old_instance = sender.objects.get(pk=instance.pk)
+            old_file = old_instance.education_institution_logo
+
+            if old_file and instance.education_institution_logo != old_file:
+                # Delete the old image file
+                if os.path.isfile(old_file.path):
+                    os.remove(old_file.path)
