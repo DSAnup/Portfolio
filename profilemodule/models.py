@@ -97,6 +97,7 @@ class Skill(models.Model):
     skill_name = models.CharField(max_length=50)
     skill_image = ProcessedImageField(upload_to='skill', validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png'])], options={'quality': 80}, processors=[ResizeToFill(23, 23)])
     skill_progress = models.PositiveSmallIntegerField()
+    order_number = models.IntegerField(default=0, editable=False)
     created_by = models.IntegerField(blank=True, null=True)
     updated_by = models.IntegerField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
