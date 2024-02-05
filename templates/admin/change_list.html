@@ -83,9 +83,12 @@
                     <div class="text-primary" style="background-color: white;">
                         {{ message }}
                     </div>
-                {% endif %}
-                {% if message.tags == "error" %}
+                {% elif message.tags == "error" %}
                     <div class="text-warning" style="background-color: white;">
+                        {{ message }}
+                    </div>
+                {% else %}
+                    <div class="text-secondary" style="background-color: white;">
                         {{ message }}
                     </div>
                 {% endif %}

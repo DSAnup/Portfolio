@@ -45,8 +45,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "profilemodule",
-    "debug_toolbar",
     'ckeditor',
+    "debug_toolbar",
     'imagekit',
 ]
 
@@ -91,7 +91,7 @@ else:
 
         "default": {
             "ENGINE": "django.db.backends.mysql",
-            "NAME": "anup",
+            "NAME": "anup2",
             "USER": "root",
             "PASSWORD": "139254",
             "HOST": "127.0.0.1",

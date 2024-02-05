@@ -63,10 +63,25 @@ class CustomSaveModelOrderNumberMixin:
         else:
             if not obj.order_number:
                 last_instance = instance.objects.last()
-                obj.order_number = last_instance.order_number + 1 if last_instance else 1
+                obj.order_number = last_instance.pk + 1 if last_instance else 1
             obj.created_by = request.user.id
             obj.save()
 
+ 
+class SwitchOrderMixin:
+    ordering = ['order_number']
+    actions = ['switch_order']
+    
+    def switch_order(self, request, queryset):
+        model_name = self.model.__name__
+        if queryset.count() == 2:
+            order1, order2 = queryset
+            order1.order_number, order2.order_number = order2.order_number, order1.order_number
+            order1.save()
+            order2.save()
+            self.message_user(request, f"{model_name}'s ordering switched successfully.")
+        else:
+            self.message_user(request, f"Please select exactly two {model_name} to switch order numbers.")
 
 class GetModel:
     def get_model_by_name(model_name):
@@ -152,4 +167,3 @@ class RemoveExistingFilesMixinAbout:
                 # Delete the old image file
                 if os.path.isfile(old_full_cv.path):
                     os.remove(old_full_cv.path)
- 

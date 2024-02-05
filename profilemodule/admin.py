@@ -39,7 +39,7 @@ class AboutAdmin(CustomAddPermissionMixin, CustomSaveModelMixin, CustomGetQueryS
     list_display = ['full_name', 'designation', 'mobile', 'title', 'email']
 
 @admin.register(SocialPlatform)
-class SocialPlatformAdmin(CustomAddPermissionMixin, CustomSaveModelMixin, CustomGetQuerySetMixin, RemoveExistingFilesMixin, admin.ModelAdmin):
+class SocialPlatformAdmin(CustomAddPermissionMixin, CustomSaveModelOrderNumberMixin, CustomGetQuerySetMixin, RemoveExistingFilesMixin, SwitchOrderMixin, admin.ModelAdmin):
     
     fields = ['social_platform_name', 'social_platform_icon', 'social_platform_url']
     list_display = ['social_platform_name', 'view_url']
@@ -51,20 +51,20 @@ class SocialPlatformAdmin(CustomAddPermissionMixin, CustomSaveModelMixin, Custom
 
 
 @admin.register(Experience)
-class ExperienceAdmin(CustomAddPermissionMixin, CustomSaveModelMixin, CustomGetQuerySetMixin, CustomTextEditor, RemoveExistingFilesMixin, admin.ModelAdmin):
+class ExperienceAdmin(CustomAddPermissionMixin, CustomSaveModelOrderNumberMixin, CustomGetQuerySetMixin, CustomTextEditor, RemoveExistingFilesMixin, SwitchOrderMixin, admin.ModelAdmin):
     
     fields = ['experience_title', 'experience_from', 'experience_from_logo', 'experience_duration', 'experience_details']
     list_display = ['experience_title', 'experience_from', 'experience_duration']
 
 
 @admin.register(Education)
-class EducationAdmin(CustomAddPermissionMixin, CustomSaveModelMixin, CustomGetQuerySetMixin, RemoveExistingFilesMixin, admin.ModelAdmin):
+class EducationAdmin(CustomAddPermissionMixin, CustomSaveModelOrderNumberMixin, CustomGetQuerySetMixin, RemoveExistingFilesMixin, SwitchOrderMixin, admin.ModelAdmin):
     
     fields = ['education_title', 'education_institution_name', 'education_institution_location', 'education_institution_logo', 'education_institution_url', 'education_duration']
     list_display = ['education_title', 'education_institution_name', 'education_institution_location']
 
 @admin.register(Skill)
-class SkillAdmin(CustomAddPermissionMixin, CustomGetQuerySetMixin, CustomSaveModelOrderNumberMixin, RemoveExistingFilesMixin,  admin.ModelAdmin):
+class SkillAdmin(CustomAddPermissionMixin, CustomGetQuerySetMixin, CustomSaveModelOrderNumberMixin, RemoveExistingFilesMixin, SwitchOrderMixin, admin.ModelAdmin):
     
     fields = ['skill_name', 'skill_image', 'skill_progress']
     list_display = ['skill_name', 'display_image']
@@ -75,7 +75,7 @@ class SkillAdmin(CustomAddPermissionMixin, CustomGetQuerySetMixin, CustomSaveMod
     display_image.short_description = 'Logo'
 
 @admin.register(Certification)
-class CertificationAdmin(CustomAddPermissionMixin, CustomSaveModelMixin, CustomGetQuerySetMixin, RemoveExistingFilesMixin, admin.ModelAdmin):
+class CertificationAdmin(CustomAddPermissionMixin, CustomSaveModelOrderNumberMixin, CustomGetQuerySetMixin, RemoveExistingFilesMixin, SwitchOrderMixin, admin.ModelAdmin):
     
     fields = ['certification_title', 'certification_image', 'certification_host', 'certification_url']
     list_display = ['certification_title', 'certification_host', 'view_url']
@@ -87,7 +87,7 @@ class CertificationAdmin(CustomAddPermissionMixin, CustomSaveModelMixin, CustomG
 
 
 @admin.register(Publication)
-class PublicationAdmin(CustomAddPermissionMixin, CustomSaveModelMixin, CustomGetQuerySetMixin, CustomTextEditor, admin.ModelAdmin):
+class PublicationAdmin(CustomAddPermissionMixin, CustomSaveModelOrderNumberMixin, CustomGetQuerySetMixin, CustomTextEditor, SwitchOrderMixin, admin.ModelAdmin):
     
     fields = ['publication_type', 'publication_url', 'publication_details']
     list_display = ['publication_type', 'publication_url']
@@ -99,7 +99,7 @@ class PublicationAdmin(CustomAddPermissionMixin, CustomSaveModelMixin, CustomGet
 
 
 @admin.register(Conference)
-class ConferenceAdmin(CustomAddPermissionMixin, CustomSaveModelMixin, CustomGetQuerySetMixin, CustomTextEditor, admin.ModelAdmin):
+class ConferenceAdmin(CustomAddPermissionMixin, CustomSaveModelOrderNumberMixin, CustomGetQuerySetMixin, CustomTextEditor, SwitchOrderMixin, admin.ModelAdmin):
     
     fields = ['conference_details']
     list_display = ['short_text_fields']
@@ -111,7 +111,7 @@ class ConferenceAdmin(CustomAddPermissionMixin, CustomSaveModelMixin, CustomGetQ
 
 
 @admin.register(Training)
-class TrainingAdmin(CustomAddPermissionMixin, CustomSaveModelMixin, CustomGetQuerySetMixin, CustomTextEditor, admin.ModelAdmin):
+class TrainingAdmin(CustomAddPermissionMixin, CustomSaveModelOrderNumberMixin, CustomGetQuerySetMixin, CustomTextEditor, SwitchOrderMixin, admin.ModelAdmin):
     
     fields = ['training_type', 'training_details']
     list_display = ['training_type', 'short_text_fields']
@@ -123,7 +123,7 @@ class TrainingAdmin(CustomAddPermissionMixin, CustomSaveModelMixin, CustomGetQue
 
 
 @admin.register(Award)
-class AwardAdmin(CustomAddPermissionMixin, CustomSaveModelMixin, CustomGetQuerySetMixin, CustomTextEditor, admin.ModelAdmin):
+class AwardAdmin(CustomAddPermissionMixin, CustomSaveModelOrderNumberMixin, CustomGetQuerySetMixin, CustomTextEditor, SwitchOrderMixin, admin.ModelAdmin):
     
     fields = ['award_details']
     list_display = ['short_text_fields']

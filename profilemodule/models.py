@@ -53,6 +53,7 @@ class SocialPlatform(models.Model):
     social_platform_icon = ProcessedImageField(upload_to='icon', validators=[FileExtensionValidator(allowed_extensions=['jpg', 'png', 'jpeg'])], options={'quality':90}, blank=True, null=True)
     social_platform_iconname = models.CharField(max_length=50,  blank=True, null=True)
     social_platform_url = models.CharField(max_length=70,  blank=True, null=True)
+    order_number = models.IntegerField(default=0, editable=False)
     created_by = models.IntegerField(blank=True, null=True)
     updated_by = models.IntegerField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -68,6 +69,7 @@ class Experience(models.Model):
     experience_from_logo = ProcessedImageField(upload_to='experience', validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png'])], options={'quality': 80},  blank=True, null=True, processors=[ResizeToFill(64, 64)])
     experience_duration = models.CharField(max_length= 70, blank=True, null=True)
     experience_details = models.TextField(blank=True, null=True)
+    order_number = models.IntegerField(default=0, editable=False)
     created_by = models.IntegerField(blank=True, null=True)
     updated_by = models.IntegerField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -84,6 +86,7 @@ class Education(models.Model):
     education_institution_logo = ProcessedImageField(upload_to='education', validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png'])], options={'quality': 80}, processors=[ResizeToFill(64, 64)])
     education_institution_url = models.CharField(max_length=70)
     education_duration = models.CharField(max_length=70)
+    order_number = models.IntegerField(default=0, editable=False)
     created_by = models.IntegerField(blank=True, null=True)
     updated_by = models.IntegerField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -105,13 +108,14 @@ class Skill(models.Model):
 
     def __str__(self):
         return self.skill_name
-    
+        
 class Certification(models.Model):
 
     certification_title = models.CharField(max_length=50)
     certification_image = ProcessedImageField(upload_to='certification', validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png'])], options={'quality': 80}, processors=[ResizeToFill(250, 200)])
     certification_host = models.CharField(max_length=70, blank=True, null=True)
     certification_url = models.CharField(max_length=70, blank=True, null=True)
+    order_number = models.IntegerField(default=0, editable=False)
     created_by = models.IntegerField(blank=True, null=True)
     updated_by = models.IntegerField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -132,6 +136,7 @@ class Publication(models.Model):
     publication_type = models.CharField(max_length=2, choices=PublicationTypeChoice, default=Published)
     publication_url = models.CharField(max_length=70, blank=True, null=True)
     publication_details = models.TextField(blank=True, null=True)
+    order_number = models.IntegerField(default=0, editable=False)
     created_by = models.IntegerField(blank=True, null=True)
     updated_by = models.IntegerField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -143,6 +148,7 @@ class Publication(models.Model):
 class Conference(models.Model):
     
     conference_details = models.TextField()
+    order_number = models.IntegerField(default=0, editable=False)
     created_by = models.IntegerField(blank=True, null=True)
     updated_by = models.IntegerField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -162,6 +168,7 @@ class Training(models.Model):
 
     training_type = models.CharField(max_length=2, choices = TrainingTypeChoice, default = Training)
     training_details = models.TextField()
+    order_number = models.IntegerField(default=0, editable=False)
     created_by = models.IntegerField(blank=True, null=True)
     updated_by = models.IntegerField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -173,6 +180,7 @@ class Training(models.Model):
 class Award(models.Model):
     
     award_details = models.TextField()
+    order_number = models.IntegerField(default=0, editable=False)
     created_by = models.IntegerField(blank=True, null=True)
     updated_by = models.IntegerField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
