@@ -51,9 +51,9 @@ class SocialPlatformAdmin(CustomAddPermissionMixin, CustomSaveModelOrderNumberMi
 
 
 @admin.register(Experience)
-class ExperienceAdmin(CustomAddPermissionMixin, CustomSaveModelOrderNumberMixin, CustomGetQuerySetMixin, CustomTextEditor, RemoveExistingFilesMixin, SwitchOrderMixin, admin.ModelAdmin):
+class ExperienceAdmin(CustomAddPermissionMixin, CustomSaveModelOrderNumberMixin, CustomGetQuerySetMixin, DateAndTextEditor,  RemoveExistingFilesMixin, SwitchOrderMixin, admin.ModelAdmin):
     
-    fields = ['experience_title', 'experience_from', 'experience_from_logo', 'experience_duration', 'experience_details']
+    fields = ['experience_title', 'experience_from', 'experience_from_logo', 'experience_start_date', 'experience_end_date', 'experience_duration', 'experience_details' ]
     list_display = ['experience_title', 'experience_from', 'experience_duration']
 
 

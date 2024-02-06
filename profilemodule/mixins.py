@@ -7,6 +7,31 @@ from .models import *
 from ckeditor.widgets import CKEditorWidget
 from django.utils.html import format_html
 from django.apps import apps
+from django.forms import DateInput
+import math
+
+
+class GetModel:
+    def get_model_by_name(model_name):
+        try:
+            model = apps.get_model(app_label='profilemodule', model_name=model_name)
+            return model
+        except LookupError:
+            return None
+
+class GetImageFieldName:
+    def get_field_name(instance):
+        for field in instance._meta.fields:
+            if isinstance(field, models.ImageField):
+                return field.name
+
+class CheckAdminModel:
+    def get_admin_model_status(model_name):
+        admin_model = ['user', 'session']
+        if model_name in admin_model:
+            return False
+        else: 
+            return True
 
 class CustomAddPermissionMixin:
     def has_add_permission(self, request):
@@ -52,6 +77,17 @@ class CustomSaveModelOrderNumberMixin:
     def save_model(self, request, obj, form, change):
         model_name = obj._meta.model_name
         instance = GetModel.get_model_by_name(model_name)
+        date_calucated_model = ['experience']
+        if model_name in date_calucated_model:
+            start_date = obj.experience_start_date
+            end_date = obj.experience_end_date
+            if start_date and not end_date:
+                end_date = timezone.now().date()
+            if start_date and end_date:
+                difference_in_years = math.floor((end_date - start_date).days / 365)
+                difference_in_months = math.floor(((end_date - start_date).days % 365) / 30)
+            obj.experience_duration_calculated = f"{difference_in_years} yrs & {difference_in_months} months"
+
         if change:
             existing_obj = self.get_object(request, obj.pk)
             obj.order_number = existing_obj.order_number
@@ -83,28 +119,6 @@ class SwitchOrderMixin:
         else:
             self.message_user(request, f"Please select exactly two {model_name} to switch order numbers.")
 
-class GetModel:
-    def get_model_by_name(model_name):
-        try:
-            model = apps.get_model(app_label='profilemodule', model_name=model_name)
-            return model
-        except LookupError:
-            return None
-
-class GetImageFieldName:
-    def get_field_name(instance):
-        for field in instance._meta.fields:
-            if isinstance(field, models.ImageField):
-                return field.name
-
-class CheckAdminModel:
-    def get_admin_model_status(model_name):
-        admin_model = ['user', 'session']
-        if model_name in admin_model:
-            return False
-        else: 
-            return True
-
 class RemoveExistingFilesMixin:
     @receiver(pre_save)
     def delete_existing_image(instance, **kwargs):
@@ -134,6 +148,12 @@ class RemoveExistingFilesMixin:
         
 class CustomTextEditor:
     formfield_overrides = {
+        models.TextField: {"widget": CKEditorWidget},
+    }
+
+class DateAndTextEditor:
+    formfield_overrides = {
+        models.DateField: {'widget': DateInput(attrs={'type': 'date'})},
         models.TextField: {"widget": CKEditorWidget},
     }
 
