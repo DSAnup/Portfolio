@@ -27,7 +27,7 @@ class TemplateSettings(models.Model):
 class About(models.Model):
 
     full_name = models.CharField(max_length=255)
-    designation = models.CharField(max_length=50, blank=True, null=True)
+    designation = models.CharField(max_length=150, blank=True, null=True)
     mobile = models.CharField(max_length=50)
     title  = models.CharField(max_length=255, blank=True, null=True)
     email = models.EmailField(blank=True, null=True)
@@ -49,10 +49,10 @@ class About(models.Model):
     
 class SocialPlatform(models.Model):
 
-    social_platform_name = models.CharField(max_length=50)
+    social_platform_name = models.CharField(max_length=150)
     social_platform_icon = ProcessedImageField(upload_to='icon', validators=[FileExtensionValidator(allowed_extensions=['jpg', 'png', 'jpeg'])], options={'quality':90}, blank=True, null=True)
-    social_platform_iconname = models.CharField(max_length=50,  blank=True, null=True)
-    social_platform_url = models.CharField(max_length=70,  blank=True, null=True)
+    social_platform_iconname = models.CharField(max_length=150,  blank=True, null=True)
+    social_platform_url = models.CharField(max_length=150,  blank=True, null=True)
     order_number = models.IntegerField(default=0, editable=False)
     created_by = models.IntegerField(blank=True, null=True)
     updated_by = models.IntegerField(blank=True, null=True)
@@ -64,11 +64,11 @@ class SocialPlatform(models.Model):
     
 class Experience(models.Model):
 
-    experience_title = models.CharField(max_length= 50)
-    experience_from = models.CharField(max_length= 100)
+    experience_title = models.CharField(max_length= 150)
+    experience_from = models.CharField(max_length= 150)
     experience_from_logo = ProcessedImageField(upload_to='experience', validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png'])], options={'quality': 80},  blank=True, null=True, processors=[ResizeToFill(64, 64)])
-    experience_duration = models.CharField(max_length= 70, blank=True, null=True)
-    experience_duration_calculated = models.CharField(max_length= 70, blank=True, null=True)
+    experience_duration = models.CharField(max_length= 150, blank=True, null=True)
+    experience_duration_calculated = models.CharField(max_length= 150, blank=True, null=True)
     experience_details = models.TextField(blank=True, null=True)
     experience_start_date = models.DateField(blank=True, null=True)
     experience_end_date = models.DateField(blank=True, null=True)
@@ -83,12 +83,12 @@ class Experience(models.Model):
     
 class Education(models.Model):
 
-    education_title = models.CharField(max_length=50)
-    education_institution_name = models.CharField(max_length=100, blank=True, null=True)
+    education_title = models.CharField(max_length=150)
+    education_institution_name = models.CharField(max_length=150, blank=True, null=True)
     education_institution_location = models.CharField(max_length=150, blank=True, null=True)
-    education_institution_logo = ProcessedImageField(upload_to='education', validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png'])], options={'quality': 80}, processors=[ResizeToFill(64, 64)])
-    education_institution_url = models.CharField(max_length=70)
-    education_duration = models.CharField(max_length=70)
+    education_institution_logo = ProcessedImageField(upload_to='education', validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png'])], options={'quality': 80}, processors=[ResizeToFill(64, 64)], blank=True, null=True)
+    education_institution_url = models.CharField(max_length=150, blank=True, null=True)
+    education_duration = models.CharField(max_length=150, blank=True, null=True)
     order_number = models.IntegerField(default=0, editable=False)
     created_by = models.IntegerField(blank=True, null=True)
     updated_by = models.IntegerField(blank=True, null=True)
@@ -100,7 +100,7 @@ class Education(models.Model):
 
 class Skill(models.Model):
 
-    skill_name = models.CharField(max_length=50)
+    skill_name = models.CharField(max_length=100)
     skill_image = ProcessedImageField(upload_to='skill', validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png'])], options={'quality': 80}, processors=[ResizeToFill(23, 23)])
     skill_progress = models.PositiveSmallIntegerField()
     order_number = models.IntegerField(default=0, editable=False)
@@ -114,10 +114,10 @@ class Skill(models.Model):
         
 class Certification(models.Model):
 
-    certification_title = models.CharField(max_length=50)
+    certification_title = models.CharField(max_length=150)
     certification_image = ProcessedImageField(upload_to='certification', validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png'])], options={'quality': 80}, processors=[ResizeToFill(250, 200)])
-    certification_host = models.CharField(max_length=70, blank=True, null=True)
-    certification_url = models.CharField(max_length=70, blank=True, null=True)
+    certification_host = models.CharField(max_length=150, blank=True, null=True)
+    certification_url = models.CharField(max_length=200, blank=True, null=True)
     order_number = models.IntegerField(default=0, editable=False)
     created_by = models.IntegerField(blank=True, null=True)
     updated_by = models.IntegerField(blank=True, null=True)
@@ -137,7 +137,7 @@ class Publication(models.Model):
     ]
 
     publication_type = models.CharField(max_length=2, choices=PublicationTypeChoice, default=Published)
-    publication_url = models.CharField(max_length=70, blank=True, null=True)
+    publication_url = models.CharField(max_length=200, blank=True, null=True)
     publication_details = models.TextField(blank=True, null=True)
     order_number = models.IntegerField(default=0, editable=False)
     created_by = models.IntegerField(blank=True, null=True)

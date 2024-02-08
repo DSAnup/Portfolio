@@ -19,7 +19,7 @@ body {margin:0;font-family:Aldrich}
   min-height: 235px;
 }
 
-.modal-body .ai-details li{
+.modal-body ul>li>p{
   font-size: 12px;
 }
 .w3-light-grey {

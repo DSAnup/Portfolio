@@ -1,6 +1,5 @@
 {% load static %}
 <!DOCTYPE html>
-<!-- saved from url=(0051)https://getbootstrap.com/docs/4.0/examples/pricing/ -->
 <html lang="en">
 
 <head>
@@ -37,25 +36,19 @@
     <div class="container">
         <div class="row">
             <div class="offset-md-3 col-md-6 text-center">
-                <img src="{% static 'core/images/me221.jpg' %}" class="img-fluid" alt="Responsive image">
-                <h2 class="myname">Hi, I'm Anup Mondal</h2>
-                <h5 class="designation">Application Developer . Data Science Enthusiast</h5>
-                <p>I am interested to solve real world problems across different domains.</p>
+                <img src="{{ about.profile_picture.url }}" class="img-fluid" alt="{{about.full_name}}">
+                <h2 class="myname">{{ about.title }}</h2>
+                <h5 class="designation">{{about.designation}}</h5>
+                <p>{{about.about_me|safe}}</p>
                 <hr class="hr">
             </div>
         </div>
         <div class="row">
             <div class="offset-md-3 col-md-6 text-center">
-                <a href="https://github.com/DSAnup" target="_blank" class="btn btn-sm btn-outline-dark mr-2 mt-3"><img
-                        class="social-image mr-1" src="{% static 'core/images/icon/github.png' %}">GitHub</a>
-                <a href="https://www.facebook.com/dscanup" target="_blank"
-                    class="btn btn-sm btn-outline-dark mr-2 mt-3"><img class="social-image mr-1"
-                        src="{% static 'core/images/icon/fb.png' %}">Facebook</a>
-                <a href="https://www.linkedin.com/in/DSAnup" target="_blank"
-                    class="btn btn-sm btn-outline-dark mr-2 mt-3"><img class="social-image mr-1"
-                        src="{% static 'core/images/icon/lnkdn.png' %}">LinkedIn</a>
-                <a href="mailto:anup12.m@gmail.com" target="_blank" class="btn btn-sm btn-outline-dark mr-2 mt-3"><img
-                        class="social-image mr-1" src="{% static 'core/images/icon/gmail.png' %}">Email</a>
+                {% for social in socialplatforms%}
+                <a href="{{social.social_platform_url}}" target="_blank" class="btn btn-sm btn-outline-dark mr-2 mt-3"><img
+                        class="social-image mr-1" src="{{social.social_platform_icon.url}}">{{social.social_platform_name}}</a>
+                {% endfor %}
             </div>
         </div>
     </div>
@@ -80,206 +73,103 @@
             </div>
 
             <div class="row" id="ai-header">
-                <div class="offset-md-1 col-md-5">
-                    <div class="card ai-header-card">
-                        <div class="row">
-                            <div class="col-md-2">
-                                <img class="experience-image" src="{% static 'core/images/icon/bondstein.png' %}">
-                            </div>
-                            <div class="col-md-10 text-left">
-                                <div class="experience-title">
-                                    <b>Application Developer</b><br>
-                                    Bondstein Technology Ltd.
+                {% for experience in experiences %}
+                    {% if forloop.counter|divisibleby:2  %}
+                    <div class="col-md-5">
+                        <div class="card ai-header-card">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <img class="experience-image" src="{{experience.experience_from_logo.url}}">
                                 </div>
-                                <span class="text-muted ai-details">Oct 2020 - Present </span><br>
-                                <ul class="ai-details">
-                                    <li>Participate in end to end product life cycle: confirming requirements, solution
-                                        design, development, testing, and implementation</li>
-                                    <li>Design-build, and maintain high performance, reusable, and reliable code</li>
-                                    <li>Assist in preparing technical specs for development by other developers...
-                                        <a class="experience-details" data-toggle="modal" data-target="#myModal1">Read
-                                            More</a>
-                                        <!-- Modal -->
-                                        <div id="myModal1" class="modal fade" role="dialog">
-                                            <div class="modal-dialog">
-                                                <!-- Modal content-->
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h4 class="modal-title">Responsibilities</h4>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <ul class="ai-details">
-                                                            <li>Participate in end to end product life cycle: confirming
-                                                                requirements, solution design, development, testing, and
-                                                                implementation</li>
-                                                            <li>Design-build, and maintain high performance, reusable,
-                                                                and reliable code</li>
-                                                            <li>Assist in preparing technical specs for development by
-                                                                other developers.</li>
-                                                            <li>Resolve complex technical issues and drive innovation
-                                                            </li>
-                                                            <li>Help maintain code quality and organization</li>
-                                                            <li>A self-starter and self-directed once the strategy,
-                                                                architecture, and roadmap are aligned</li>
-                                                            <li>Identify and correct bottlenecks and fix bugs</li>
-                                                            <li>Using Stack - PHP (Core), Python, MySQL, PostgreSQL,
-                                                                MariaDB, HTML, CSS, JavaScript, etc.</li>
-                                                            <li>Git and GitHub using for version control management.
-                                                            </li>
-                                                            <li>Advanced integration of Google Map API & similar
-                                                                services </li>
-                                                            <li>Server: Amazon AWS, Google Cloud, Private VPS</li>
-                                                        </ul>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-default"
-                                                            data-dismiss="modal">Close</button>
-                                                    </div>
+                                <div class="col-md-10 text-left">
+                                    <div class="experience-title">
+                                        <b>{{experience.experience_title}}</b><br>
+                                        {{experience.experience_from}}
+                                    </div>
+                                    <span class="text-muted ai-details">
+                                        {% if experience.experience_duration %}
+                                            {{experience.experience_duration}}
+                                        {% else %}
+                                            {% if experience.experience_end_date %}
+                                                {{experience.experience_start_date|date:'F Y'}} - {{experience.experience_end_date|date:'F Y'}} . {{experience.experience_duration_calculated}}
+                                            {% else %}
+                                                {{experience.experience_start_date|date:'F Y'}} - Present 
+                                            {% endif %}
+                                        {% endif %}
+                                    </span><br>
+                                    {{experience.experience_details|safe|slice:"255"}}<br>
+                                    <a class="experience-details" data-toggle="modal" data-target="#myModal{{forloop.counter}}">Read
+                                        More</a>
+                                    <div id="myModal{{forloop.counter}}" class="modal fade" role="dialog">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Responsibilities</h4>
                                                 </div>
-
+                                                <div class="modal-body">
+                                                    {{experience.experience_details|safe}}
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default"
+                                                        data-dismiss="modal">Close</button>
+                                                </div>
                                             </div>
+
                                         </div>
-                                    </li>
-                                </ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-5">
-                    <div class="card ai-header-card">
-                        <div class="row">
-                            <div class="col-md-2">
-                                <img class="experience-image" src="{% static 'core/images/icon/utshob.png' %}">
-                            </div>
-                            <div class="col-md-10 text-left">
-                                <div class="experience-title">
-                                    <b>Full Stack Engineer</b><br>
-                                    Utshob Group
+                    {% else %}
+                    <div class="offset-md-1 col-md-5">
+                        <div class="card ai-header-card">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <img class="experience-image" src="{{experience.experience_from_logo.url}}">
                                 </div>
-                                <span class="text-muted ai-details">Apr 2019 - Sep 2020 · 1 yr 6 mos</span><br>
-                                <ul class="ai-details">
-                                    <li>Analyzed data sets and helped companies make decisions based on findings.
-                                    </li>
-                                    <li>Created and presented portfolios of growth, pointing
-                                        out key trends with data visualization. </li>
-                                    <li>Analyze, design, develop & update dynamic Web
-                                        applications based on project requirements...
-                                        <a class="experience-details" data-toggle="modal" data-target="#myModal2">Read
-                                            More</a>
-                                        <!-- Modal -->
-                                        <div id="myModal2" class="modal fade" role="dialog">
-                                            <div class="modal-dialog">
-                                                <!-- Modal content-->
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h4 class="modal-title">Responsibilities</h4>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <ul class="ai-details">
-                                                            <li>Analyzed data sets and helped companies make decisions
-                                                                based on findings.
-                                                            </li>
-                                                            <li>Created and presented portfolios of growth, pointing
-                                                                out key trends with data visualization. </li>
-                                                            <li>Analyze, design, develop & update dynamic Web
-                                                                applications based on project requirements</li>
-                                                            <li>PHP, Python, Node Js use for back-end development.</li>
-                                                            <li>Design & develop new progressive web apps with ionic 4.
-                                                            </li>
-                                                            <li>Using postman for testing API. </li>
-                                                            <li>REST API development and integrating third party API
-                                                                (Google, Facebook etc.). </li>
-                                                            <li>MySQL, Firebase database are used to store data.</li>
-                                                            <li>Git and GitHub using for version control management.
-                                                            </li>
-                                                            <li>AJAX, Json, JavaScript used for client site scripting
-                                                                language. </li>
-                                                            <li>HTML5, CSS3, Bootstrap for font-end technologies.</li>
-                                                        </ul>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-default"
-                                                            data-dismiss="modal">Close</button>
-                                                    </div>
+                                <div class="col-md-10 text-left">
+                                    <div class="experience-title">
+                                        <b>{{experience.experience_title}}</b><br>
+                                        {{experience.experience_from}}
+                                    </div>
+                                    <span class="text-muted ai-details">
+                                        {% if experience.experience_duration %}
+                                            {{experience.experience_duration}}
+                                        {% else %}
+                                            {% if experience.experience_end_date %}
+                                                {{experience.experience_start_date|date:'F Y'}} - {{experience.experience_end_date|date:'F Y'}} . {{experience.experience_duration_calculated}}
+                                            {% else %}
+                                                {{experience.experience_start_date|date:'F Y'}} - Present 
+                                            {% endif %}
+                                        {% endif %}
+                                    </span><br>
+                                    {{experience.experience_details|safe|slice:"255"}}<br>
+                                    <a class="experience-details" data-toggle="modal" data-target="#myModal{{forloop.counter}}">Read
+                                        More</a>
+                                    <div id="myModal{{forloop.counter}}" class="modal fade" role="dialog">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Responsibilities</h4>
                                                 </div>
-
+                                                <div class="modal-body">
+                                                    {{experience.experience_details|safe}}
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default"
+                                                        data-dismiss="modal">Close</button>
+                                                </div>
                                             </div>
+
                                         </div>
-                                    </li>
-                                </ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="offset-md-1 col-md-5">
-                    <div class="card ai-header-card">
-                        <div class="row">
-                            <div class="col-md-2">
-                                <img class="experience-image" src="{% static 'core/images/icon/youthfireit.png' %}">
-                            </div>
-                            <div class="col-md-10 text-left">
-                                <div class="experience-title">
-                                    <b>Senior Programmer</b><br>
-                                    YouthFireIT Limited
-                                </div>
-                                <span class="text-muted">Oct 2016 - Mar 2019 · 2 yr 6 mos</span><br>
-                                <ul class="ai-details">
-                                    <li>Develops and maintains applications and databases
-                                        by evaluating client needs, analyzing requirements
-                                        and developing software systems.
-                                    </li>
-                                    <li>Preparing a work flow chart and diagram using
-                                        knowledge of computer capabilities, subject matter,
-                                        programming language and logic.
-                                    </li>
-                                    <li>Contributes to team effort by accomplishing related results as needed...
-                                        <a class="experience-details" data-toggle="modal" data-target="#myModal3">Read
-                                            More</a>
-
-                                        <!-- Modal -->
-                                        <div id="myModal3" class="modal fade" role="dialog">
-                                            <div class="modal-dialog">
-
-                                                <!-- Modal content-->
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h4 class="modal-title">Responsibilities</h4>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <ul class="ai-details">
-                                                            <li>Develops and maintains applications and databases
-                                                                by evaluating client needs, analyzing requirements
-                                                                and developing software systems.
-                                                            </li>
-                                                            <li>Preparing a work flow chart and diagram using
-                                                                knowledge of computer capabilities, subject matter,
-                                                                programming language and logic.
-                                                            </li>
-                                                            <li>Contributes to team effort by accomplishing related
-                                                                results as needed.</li>
-                                                            <li>PHP & Python used to develop and data scraping.</li>
-                                                            <li>CodeIgniter HMVC and MVC both used for developing web
-                                                                applications.</li>
-                                                            <li>MySQL database are used to store data.</li>
-                                                            <li>AJAX, Json, JavaScript used for client site scripting
-                                                                language. </li>
-                                                            <li>HTML5, CSS3, Bootstrap for font-end technologies. </li>
-                                                        </ul>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-default"
-                                                            data-dismiss="modal">Close</button>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    {% endif %}
+                {% endfor %}
             </div>
 
 
@@ -301,23 +191,45 @@
             </div>
 
             <div class="row" id="ai-header">
-                <div class="offset-md-1 col-md-5">
-                    <div class="card ai-header-card">
-                        <div class="row">
-                            <div class="col-md-2">
-                                <img class="experience-image" src="{% static 'core/images/icon/adust.png' %}">
-                            </div>
-                            <div class="col-md-10 text-left">
-                                <div class="experience-title">
-                                    <b>Bachelor of Science in Computer Science and Technology</b><br>
-                                    Atish Dipnakar University of Science & Technology
-                                </div>
-                                <span class="text-muted ai-details">2013 - 2016 </span><br>
+                {% for education in educations %}
+                    {% if forloop.counter|divisibleby:2 %}
+                        <div class="col-md-5">
+                            <div class="card ai-header-card">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <img class="experience-image" src="{% static 'core/images/icon/adust.png' %}">
+                                    </div>
+                                    <div class="col-md-10 text-left">
+                                        <div class="experience-title">
+                                            <b>Bachelor of Science in Computer Science and Technology</b><br>
+                                            Atish Dipnakar University of Science & Technology
+                                        </div>
+                                        <span class="text-muted ai-details">2013 - 2016 </span><br>
 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% else %}
+                    <div class="offset-md-1 col-md-5">
+                        <div class="card ai-header-card">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <img class="experience-image" src="{{education.education_institution_logo.url}}">
+                                </div>
+                                <div class="col-md-10 text-left">
+                                    <div class="experience-title">
+                                        <b>{{education.education_title}}</b><br>
+                                        {{education.education_institution_name}}
+                                    </div>
+                                    <span class="text-muted ai-details">{{education.education_duration}} </span><br>
+
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                    {% endif %}
+                {% endfor %}
             </div>
 
 
@@ -338,62 +250,14 @@
             <div class="row">
                 <div class="offset-md-1 col-md-10 text-center">
                     <div class="row">
-
-                        <div class="col-md-2">
-                            <div class="w3-light-grey">
-                                <div class="w3-grey" style="height:24px;width:75%"><img class="skills-image mr-1"
-                                        src="{% static 'core/images/icon/php.png' %}"><span>PHP</span></div>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="w3-light-grey">
-                                <div class="w3-grey" style="height:24px;width:80%"><img class="skills-image mr-1"
-                                        src="{% static 'core/images/icon/python.png' %}"><span>Python</span></div>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="w3-light-grey">
-                                <div class="w3-grey" style="height:24px;width:75%"><img class="skills-image mr-1"
-                                        src="{% static 'core/images/icon/mysql.png' %}"><span>MySql</span></div>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="w3-light-grey">
-                                <div class="w3-grey" style="height:24px;width:70%"><img class="skills-image mr-1"
-                                        src="{% static 'core/images/icon/codeigniter.png' %}"><span>CodeIgniter</span>
+                        {% for skill in skills %}
+                            <div class="col-md-2">
+                                <div class="w3-light-grey">
+                                    <div class="w3-grey" style="height:24px; width: {{ skill.skill_progress }}%"><img class="skills-image mr-1"
+                                            src="{{skill.skill_image.url}}"><span>{{skill.skill_name}}</span></div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="w3-light-grey">
-                                <div class="w3-grey" style="height:24px;width:80%"><img class="skills-image mr-1"
-                                        src="{% static 'core/images/icon/django.png' %}"><span>Django</span></div>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="w3-light-grey">
-                                <div class="w3-grey" style="height:24px;width:90%"><img class="skills-image mr-1"
-                                        src="{% static 'core/images/icon/git.png' %}"><span>Git</span></div>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="w3-light-grey">
-                                <div class="w3-grey" style="height:24px;width:75%"><img class="skills-image mr-1"
-                                        src="{% static 'core/images/icon/postgre.png' %}"><span>PostgreSql</span></div>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="w3-light-grey">
-                                <div class="w3-grey" style="height:24px;width:95%"><img class="skills-image mr-1"
-                                        src="{% static 'core/images/icon/sphp.png' %}"><span>sPHP</span></div>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="w3-light-grey">
-                                <div class="w3-grey" style="height:24px;width:65%"><img class="skills-image mr-1"
-                                        src="{% static 'core/images/icon/datascience.png' %}"><span>Data</span></div>
-                            </div>
-                        </div>
+                        {% endfor %}
                     </div>
 
                 </div>
@@ -419,173 +283,28 @@
                 <div class="row text-center" id="ai-header">
                     <div class="ai-offset-md-half col-md-11">
                         <div class="row">
-
+                            {% for certificate in certifications %}
                             <div class="col-md-3">
                                 <div class="card ai-project-card">
-                                    <a href="https://www.hackerrank.com/certificates/4ac998c27e93" target="_blank">
+                                    <a href="{{certificate.certification_url}}" target="_blank">
                                         <img class="ai-project-image"
-                                            src="{% static 'core/images/certification/pythonbasic.png' %}">
+                                            src="{{certificate.certification_image.url}}">
                                     </a>
                                     <div class="card-body">
-                                        <h4>Python (Basic)</h4>
-                                        <div class="ai-project-long-description">Host By HackerRank
+                                        <h4>{{certificate.certification_title}}</h4>
+                                        <div class="ai-project-long-description">
+                                            {{certificate.certification_host}}
                                         </div>
                                     </div>
                                     <div class="ai-project-button-wrapper">
-                                        <a href="https://www.hackerrank.com/certificates/4ac998c27e93" target="_blank"
+                                        <a href="{{certificate.certification_url}}" target="_blank"
                                             class="btn btn-sm btn-outline-primary mr-2"><i
                                                 class="fas fa-laptop mr-2"></i>View
                                         </a>
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="col-md-3">
-                                <div class="card ai-project-card">
-                                    <a href="https://www.hackerrank.com/certificates/aef6d77a3136" target="_blank">
-                                        <img class="ai-project-image"
-                                            src="{% static 'core/images/certification/pythonintermediate.png' %}">
-                                    </a>
-                                    <div class="card-body">
-                                        <h4>Python (Intermediate)</h4>
-                                        <div class="ai-project-long-description">Host By HackerRank
-                                        </div>
-                                    </div>
-                                    <div class="ai-project-button-wrapper">
-                                        <a href="https://www.hackerrank.com/certificates/aef6d77a3136" target="_blank"
-                                            class="btn btn-sm btn-outline-primary mr-2"><i
-                                                class="fas fa-laptop mr-2"></i>View
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <div class="card ai-project-card">
-                                    <a href="https://www.hackerrank.com/certificates/94dac8b81b6e" target="_blank">
-                                        <img class="ai-project-image"
-                                            src="{% static 'core/images/certification/pythonadvanced.png' %}">
-                                    </a>
-                                    <div class="card-body">
-                                        <h4>Python (Advanced)</h4>
-                                        <div class="ai-project-long-description">Host By HackerRank
-                                        </div>
-                                    </div>
-                                    <div class="ai-project-button-wrapper">
-                                        <a href="https://www.hackerrank.com/certificates/94dac8b81b6e" target="_blank"
-                                            class="btn btn-sm btn-outline-primary mr-2"><i
-                                                class="fas fa-laptop mr-2"></i>View
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <div class="card ai-project-card">
-                                    <a href="https://www.hackerrank.com/certificates/4d1173e7d1fb" target="_blank">
-                                        <img class="ai-project-image"
-                                            src="{% static 'core/images/certification/pythonproblem.png' %}">
-                                    </a>
-                                    <div class="card-body">
-                                        <h4>Problem Solving (Basic)</h4>
-                                        <div class="ai-project-long-description">Host By HackerRank
-                                        </div>
-                                    </div>
-                                    <div class="ai-project-button-wrapper">
-                                        <a href="https://www.hackerrank.com/certificates/4d1173e7d1fb" target="_blank"
-                                            class="btn btn-sm btn-outline-primary mr-2"><i
-                                                class="fas fa-laptop mr-2"></i>View
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <div class="card ai-project-card">
-                                    <a href="https://www.youracclaim.com/badges/96141d15-504f-4722-bdd7-edf7280f80b2"
-                                        target="_blank">
-                                        <img class="ai-project-image"
-                                            src="{% static 'core/images/certification/datavizpython.png' %}">
-                                    </a>
-                                    <div class="card-body">
-                                        <h4>Data Visualization Using Python</h4>
-                                        <div class="ai-project-long-description">Host By IBM
-                                        </div>
-                                    </div>
-                                    <div class="ai-project-button-wrapper">
-                                        <a href="https://www.youracclaim.com/badges/96141d15-504f-4722-bdd7-edf7280f80b2"
-                                            target="_blank" class="btn btn-sm btn-outline-primary mr-2"><i
-                                                class="fas fa-laptop mr-2"></i>View
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div class="col-md-3">
-                                <div class="card ai-project-card">
-                                    <a href="https://www.youracclaim.com/badges/67812497-c901-4655-8516-ec0cba744282"
-                                        target="_blank">
-                                        <img class="ai-project-image"
-                                            src="{% static 'core/images/certification/datascience1.png' %}">
-                                    </a>
-                                    <div class="card-body">
-                                        <h4>Python for Data Science</h4>
-                                        <div class="ai-project-long-description">Host By IBM
-                                        </div>
-                                    </div>
-                                    <div class="ai-project-button-wrapper">
-                                        <a href="https://www.youracclaim.com/badges/67812497-c901-4655-8516-ec0cba744282"
-                                            target="_blank" class="btn btn-sm btn-outline-primary mr-2"><i
-                                                class="fas fa-laptop mr-2"></i>View
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div class="col-md-3">
-                                <div class="card ai-project-card">
-                                    <a href="https://www.youracclaim.com/badges/cb6c125c-7400-415d-865f-ad52e223810f"
-                                        target="_blank">
-                                        <img class="ai-project-image"
-                                            src="{% static 'core/images/certification/datascience2.png' %}">
-                                    </a>
-                                    <div class="card-body">
-                                        <h4>Applied Data Science with Python - Level 2</h4>
-                                        <div class="ai-project-long-description">Host By IBM
-                                        </div>
-                                    </div>
-                                    <div class="ai-project-button-wrapper">
-                                        <a href="https://www.youracclaim.com/badges/cb6c125c-7400-415d-865f-ad52e223810f"
-                                            target="_blank" class="btn btn-sm btn-outline-primary mr-2"><i
-                                                class="fas fa-laptop mr-2"></i>View
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div class="col-md-3">
-                                <div class="card ai-project-card">
-                                    <a href="https://www.youracclaim.com/badges/0d7f3855-4da9-4ea1-acfd-f62138ee744d"
-                                        target="_blank">
-                                        <img class="ai-project-image"
-                                            src="{% static 'core/images/certification/datavizpython.png' %}">
-                                    </a>
-                                    <div class="card-body">
-                                        <h4>Statistics</h4>
-                                        <div class="ai-project-long-description">Host By IBM
-                                        </div>
-                                    </div>
-                                    <div class="ai-project-button-wrapper">
-                                        <a href="https://www.youracclaim.com/badges/0d7f3855-4da9-4ea1-acfd-f62138ee744d"
-                                            target="_blank" class="btn btn-sm btn-outline-primary mr-2"><i
-                                                class="fas fa-laptop mr-2"></i>View
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
+                            {% endfor %}
 
                         </div>
                     </div>
@@ -602,18 +321,10 @@
             <div class="row">
                 <div class="offset-md-3 col-md-6 text-center">
                     <hr class="hr">
-                    <a href="https://github.com/DSAnup" target="_blank"
-                        class="btn btn-sm btn-outline-dark mr-2 mt-3"><img class="social-image mr-1"
-                            src="{% static 'core/images/icon/github.png' %}">GitHub</a>
-                    <a href="https://www.facebook.com/dscanup" target="_blank"
-                        class="btn btn-sm btn-outline-dark mr-2 mt-3"><img class="social-image mr-1"
-                            src="{% static 'core/images/icon/fb.png' %}">Facebook</a>
-                    <a href="https://www.linkedin.com/in/DSAnup" target="_blank"
-                        class="btn btn-sm btn-outline-dark mr-2 mt-3"><img class="social-image mr-1"
-                            src="{% static 'core/images/icon/lnkdn.png' %}">LinkedIn</a>
-                    <a href="mailto:anup12.m@gmail.com" target="_blank"
-                        class="btn btn-sm btn-outline-dark mr-2 mt-3"><img class="social-image mr-1"
-                            src="{% static 'core/images/icon/gmail.png' %}">Email</a>
+                    {% for social in socialplatforms%}
+                        <a href="{{social.social_platform_url}}" target="_blank" class="btn btn-sm btn-outline-dark mr-2 mt-3"><img
+                            class="social-image mr-1" src="{{social.social_platform_icon.url}}">{{social.social_platform_name}}</a>
+                    {% endfor %}
                 </div>
             </div>
 
