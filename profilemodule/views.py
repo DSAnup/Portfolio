@@ -15,6 +15,7 @@ def index(request):
         educations = Education.objects.filter(created_by = user.id).order_by('order_number')
         skills = Skill.objects.filter(created_by = user.id).order_by('order_number')
         certifications = Certification.objects.filter(created_by = user.id).order_by('order_number')
+        host_name = request.get_host()
         data = {
             'about': about,
             'socialplatforms': socialplatforms,
@@ -22,6 +23,7 @@ def index(request):
             'skills': skills,
             'certifications': certifications,
             'educations': educations,
+            'hostname': host_name,
         }
         return render(request, "core/index.html", data)
     else:
