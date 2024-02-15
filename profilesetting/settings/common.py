@@ -31,7 +31,7 @@ SECRET_KEY = "django-insecure-92p*=lo6*ne5m@dngnf81u@8ux&7zy3z5%gh4x69ohx*557i$t
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["server.bestcloudns.biz", "127.0.0.1", "portfolio.anupmondal.me", "django.anupmondal.me"]
+ALLOWED_HOSTS = ["server.bestcloudns.biz", "127.0.0.1", "portfolio.anupmondal.me", "django.anupmondal.me", "anupmondal.me", "pronoymondal.me"]
 
 
 # Application definition
