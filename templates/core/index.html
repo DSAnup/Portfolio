@@ -35,12 +35,13 @@
 
     <div class="container">
         <div class="row">
-            {{hostname}}
             <div class="offset-md-3 col-md-6 text-center">
+                {% for about in about %}
                 <img src="{{ about.profile_picture.url }}" class="img-fluid" alt="{{about.full_name}}">
                 <h2 class="myname">{{ about.title }}</h2>
                 <h5 class="designation">{{about.designation}}</h5>
                 <p>{{about.about_me|safe}}</p>
+                {% endfor %}
                 <hr class="hr">
             </div>
         </div>

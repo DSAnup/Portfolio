@@ -166,3 +166,4 @@ media/
 migrations/
 Pipfile
 Pipfile.lock
+assets/
