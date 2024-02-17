@@ -10,74 +10,79 @@ def index(request):
     if host_name == 'anupmondal.me':
         localuser = 'anup'
         user = User.objects.get(username=localuser)
-        about = About.objects.filter(created_by = user.id)
+        abouts = About.objects.filter(created_by = user.id)
         socialplatforms = SocialPlatform.objects.filter(created_by = user.id).order_by('order_number')
         experiences = Experience.objects.filter(created_by = user.id).order_by('order_number')
         educations = Education.objects.filter(created_by = user.id).order_by('order_number')
         skills = Skill.objects.filter(created_by = user.id).order_by('order_number')
         certifications = Certification.objects.filter(created_by = user.id).order_by('order_number')
         data = {
-            'about': about,
+            'abouts': abouts,
             'socialplatforms': socialplatforms,
             'experiences': experiences,
             'skills': skills,
             'certifications': certifications,
             'educations': educations,
-            'hostname': host_name,
         }
         return render(request, "core/index.html", data)
     
     elif host_name == '127.0.0.1:8000':
         localuser = 'pronoy'
         user = User.objects.get(username=localuser)
-        about = About.objects.filter(created_by = user.id)
+        abouts = About.objects.filter(created_by = user.id)
         socialplatforms = SocialPlatform.objects.filter(created_by = user.id).order_by('order_number')
         experiences = Experience.objects.filter(created_by = user.id).order_by('order_number')
         educations = Education.objects.filter(created_by = user.id).order_by('order_number')
-        skills = Skill.objects.filter(created_by = user.id).order_by('order_number')
-        certifications = Certification.objects.filter(created_by = user.id).order_by('order_number')
+        publications = Publication.objects.filter(created_by = user.id).order_by('order_number')
+        conferences = Conference.objects.filter(created_by = user.id).order_by('order_number')
+        trainings = Training.objects.filter(created_by = user.id).order_by('order_number')
+        awards = Award.objects.filter(created_by = user.id).order_by('order_number')
         data = {
-            'about': about,
+            'abouts': abouts,
             'socialplatforms': socialplatforms,
             'experiences': experiences,
-            'skills': skills,
-            'certifications': certifications,
+            'conferences': conferences,
+            'trainings': trainings,
             'educations': educations,
-            'hostname': host_name,
+            'publications': publications,
+            'awards': awards,
         }
-        return render(request, "core/index2.html")
+        return render(request, "core/index2.html", data)
     
     elif host_name == 'pronoymondal.me':
         localuser = 'pronoy'
         user = User.objects.get(username=localuser)
-        about = About.objects.filter(created_by = user.id)
+        abouts = About.objects.filter(created_by = user.id)
         socialplatforms = SocialPlatform.objects.filter(created_by = user.id).order_by('order_number')
         experiences = Experience.objects.filter(created_by = user.id).order_by('order_number')
         educations = Education.objects.filter(created_by = user.id).order_by('order_number')
-        skills = Skill.objects.filter(created_by = user.id).order_by('order_number')
-        certifications = Certification.objects.filter(created_by = user.id).order_by('order_number')
+        publications = Publication.objects.filter(created_by = user.id).order_by('order_number')
+        conferences = Conference.objects.filter(created_by = user.id).order_by('order_number')
+        trainings = Training.objects.filter(created_by = user.id).order_by('order_number')
+        awards = Award.objects.filter(created_by = user.id).order_by('order_number')
         data = {
-            'about': about,
+            'abouts': abouts,
             'socialplatforms': socialplatforms,
             'experiences': experiences,
-            'skills': skills,
-            'certifications': certifications,
+            'conferences': conferences,
+            'trainings': trainings,
             'educations': educations,
-            'hostname': host_name,
+            'publications': publications,
+            'awards': awards,
         }
         return render(request, "core/index2.html", data)
     
     else:
         localuser = 'anup'
         user = User.objects.get(username=localuser)
-        about = About.objects.filter(created_by = user.id)
+        abouts = About.objects.filter(created_by = user.id)
         socialplatforms = SocialPlatform.objects.filter(created_by = user.id).order_by('order_number')
         experiences = Experience.objects.filter(created_by = user.id).order_by('order_number')
         educations = Education.objects.filter(created_by = user.id).order_by('order_number')
         skills = Skill.objects.filter(created_by = user.id).order_by('order_number')
         certifications = Certification.objects.filter(created_by = user.id).order_by('order_number')
         data = {
-            'about': about,
+            'abouts': abouts,
             'socialplatforms': socialplatforms,
             'experiences': experiences,
             'skills': skills,

@@ -126,7 +126,7 @@ class RemoveExistingFilesMixin:
         get_instance = GetModel.get_model_by_name(model_name)
         image_field_name = GetImageFieldName.get_field_name(instance)
         get_admin_model_status = CheckAdminModel.get_admin_model_status(model_name)
-        if instance.pk and get_admin_model_status:
+        if instance.pk and get_admin_model_status and image_field_name:
             old_instance = get_instance.objects.get(pk=instance.pk)
             existing_image = getattr(old_instance, image_field_name)
 
@@ -137,8 +137,9 @@ class RemoveExistingFilesMixin:
     @receiver(pre_delete)
     def pre_delete_existing_image(instance, **kwargs):
         model_name = instance._meta.model_name
+        image_field_name = GetImageFieldName.get_field_name(instance)
         get_admin_model_status = CheckAdminModel.get_admin_model_status(model_name)
-        if get_admin_model_status:
+        if get_admin_model_status and image_field_name:
             image_field_name = GetImageFieldName.get_field_name(instance)
             existing_image = getattr(instance, image_field_name)
             if existing_image:

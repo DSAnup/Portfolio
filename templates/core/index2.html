@@ -37,10 +37,10 @@
                 aria-expanded="false" aria-controls="navbar"><i></i></a>
             <aside id="colorlib-aside" role="complementary" class="border js-fullheight">
                 <div class="text-center">
-                    <div class="author-img" style="background-image: url({% static 'core2/images/profilepic.jpg' %});">
+                    <div class="author-img" style="background-image: url({{abouts.0.profile_picture.url}});">
                     </div>
-                    <h1 id="colorlib-logo"><a href="index.html">Pronoy Mondal</a></h1>
-                    <span class="position"><a href="#">Research Assistant</a> </span>
+                        <h1 id="colorlib-logo"><a href="index.html">{{abouts.0.full_name}}</a></h1>
+                    <span class="position"><a href="#">{{abouts.0.designation}}</a> </span>
                 </div>
                 <nav id="colorlib-main-menu" role="navigation" class="navbar">
                     <div id="navbar" class="collapse">
@@ -62,10 +62,10 @@
                 <div class="colorlib-footer">
 
                     <ul>
-                        <li><a href="https://www.facebook.com/pronoy.mondal.161" target="_blank"><i
-                                    class="icon-facebook2"></i></a></li>
-                        <li><a href="https://www.linkedin.com/in/pronoy-mondal-49ba46242/" target="_blank"><i
-                                    class="icon-linkedin2"></i></a></li>
+                        {% for social in socialplatforms %}
+                            <li><a href="{{social.social_platform_url}}" target="_blank"><i
+                                        class="{{social.social_platform_iconname}}"></i></a></li>
+                        {% endfor %}
                     </ul>
                 </div>
 
@@ -75,7 +75,7 @@
                 <section id="colorlib-hero" class="js-fullheight" data-section="home">
                     <div class="flexslider js-fullheight">
                         <ul class="slides">
-                            <li style="background-image: url({% static 'core2/images/cover1.jpg' %});">
+                            <li style="background-image: url({{abouts.0.title_background.url}});">
                                 <div class="overlay"></div>
                                 <div class="container-fluid">
                                     <div class="row">
@@ -83,9 +83,9 @@
                                             class="col-md-12 col-md-offset-6 col-md-pull-6 col-sm-12 col-xs-12 js-fullheight slider-text">
                                             <div class="slider-text-inner js-fullheight">
                                                 <div class="desc">
-                                                    <h2>Hi! I'm Pronoy
+                                                    <h2>Hi! I'm {{abouts.0.full_name|slice:'6'}}
                                                         <br>
-                                                        <span style="font-size:16px">A Microplastic Analyst</span>
+                                                        <span style="font-size:16px">{{abouts.0.title}}</span>
                                                     </h2>
 
                                                 </div>
@@ -94,7 +94,6 @@
                                     </div>
                                 </div>
                             </li>
-
                         </ul>
                     </div>
                 </section>
@@ -107,19 +106,7 @@
                                     <div class="col-md-12">
                                         <div class="about-desc">
                                             <span class="heading-meta">About Me</span>
-                                            <p style="text-align:justify"><strong>Hi I'm Pronoy Mondal.</strong> I am a
-                                                highly motivated research enthusiast with a strong academic background.
-                                                I come from a science background and have consistently secured
-                                                outstanding results and positions throughout my academic career.
-                                                Currently, my primary research interest is in fish food, with a focus on
-                                                processing, contamination, and safe and sustainable seafood production.
-                                                I am dedicated to conducting rigorous and innovative research to make a
-                                                meaningful impact in this field. In addition, I am adept at working in
-                                                the laboratory with long patience and long hours, ensuring that
-                                                experiments are conducted meticulously and accurately. I enjoy playing
-                                                university-level cricket and participating in stage management in my
-                                                leisure time.</p>
-
+                                                {{abouts.0.about_me|safe}}
                                         </div>
                                     </div>
                                 </div>
@@ -148,24 +135,28 @@
                                                 <i class="icon-pen2"></i>
                                             </div>
 
+                                            {% for experience in experiences %}
                                             <div class="timeline-label">
-                                                <h2><a href="#">University Research Assistant</a> <span>(July 2021 -
-                                                        present)</span></h2>
-                                                <h5>Department of Fisheries Technology, Patuakhali Science and
-                                                    Technology University, Bangladesh</h5>
+                                                <h2>
+                                                    <a href="#">{{experience.experience_title}}</a> 
+                                                    <span>
+                                                        ({% if experience.experience_duration %}
+                                                            {{experience.experience_duration}}
+                                                        {% else %}
+                                                            {% if experience.experience_end_date %}
+                                                                {{experience.experience_start_date|date:'F Y'}} - {{experience.experience_end_date|date:'F Y'}} . {{experience.experience_duration_calculated}}
+                                                            {% else %}
+                                                                {{experience.experience_start_date|date:'F Y'}} - Present 
+                                                            {% endif %}
+                                                        {% endif %})
+                                                    </span>
+                                                </h2>
+                                                <h5>{{experience.experience_from}}</h5>
                                                 <p>
-                                                    <strong>Research Project:</strong> Identification of Microplastic
-                                                    Contamination in Commercial Dried Marine Fish from the Bay of
-                                                    Bengal: an Implication of Marine Pollution to Seafood Safety.
-                                                    <br>
-                                                    <strong>Fund:</strong> Grant for Advanced Research in Education
-                                                    (GARE), Bangladesh Bureau of Educational Information and Statistics
-                                                    (BANBEIS), Bangladesh Ministry of Education.
-                                                </p>
-                                                <p>
-
+                                                    {{experience.experience_details|safe}}
                                                 </p>
                                             </div>
+                                            {% endfor %}
                                         </div>
                                     </article>
 
@@ -187,72 +178,25 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="timeline-centered">
-                                    <article class="timeline-entry animate-box" data-animate-effect="fadeInLeft">
-                                        <div class="timeline-entry-inner">
+                                    {% for education in educations %}
+                                        <article class="timeline-entry animate-box" data-animate-effect="fadeInLeft">
+                                            <div class="timeline-entry-inner">
 
-                                            <div class="timeline-icon color-1">
-                                                <i class="icon-pen2"></i>
-                                            </div>
+                                                <div class="timeline-icon color-1">
+                                                    <i class="icon-pen2"></i>
+                                                </div>
 
-                                            <div class="timeline-label">
-                                                <h2><a href="#">Master's in Fisheries Technology </a>
-                                                    <span>(2021)</span>
-                                                </h2>
-                                                <h5>Patuakhali Science and Technology University, Patuakhali, Bangladesh
-                                                    <a href="http://pstu.ac.bd/" target="_blank">Click here</a>
-                                                </h5>
+                                                <div class="timeline-label">
+                                                    <h2><a href="#">{{education.education_title}}</a>
+                                                        <span>({{education.education_duration}})</span>
+                                                    </h2>
+                                                    <h5>{{education.education_institution_name}}, {{education.education_institution_location}}
+                                                        <a href="{{education.education_institution_url}}" target="_blank">Click here</a>
+                                                    </h5>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </article>
-                                    <article class="timeline-entry animate-box" data-animate-effect="fadeInLeft">
-                                        <div class="timeline-entry-inner">
-
-                                            <div class="timeline-icon color-1">
-                                                <i class="icon-pen2"></i>
-                                            </div>
-
-                                            <div class="timeline-label">
-                                                <h2><a href="#">Bachelor's in Fisheries Science </a> <span>(2020)</span>
-                                                </h2>
-                                                <h5>Patuakhali Science and Technology University, Patuakhali, Bangladesh
-                                                    <a href="http://pstu.ac.bd/" target="_blank">Click here</a>
-                                                </h5>
-                                            </div>
-                                        </div>
-                                    </article>
-                                    <article class="timeline-entry animate-box" data-animate-effect="fadeInLeft">
-                                        <div class="timeline-entry-inner">
-
-                                            <div class="timeline-icon color-1">
-                                                <i class="icon-pen2"></i>
-                                            </div>
-
-                                            <div class="timeline-label">
-                                                <h2><a href="#">Higher Secondary Certificate (H.S.C) </a>
-                                                    <span>(2015)</span>
-                                                </h2>
-                                                <h5>Bangladesh Navy (B.N.) College, Dhaka, Bangladesh. <a
-                                                        href="https://bncd.edu.bd/" target="_blank">Click here</a></h5>
-                                            </div>
-                                        </div>
-                                    </article>
-                                    <article class="timeline-entry animate-box" data-animate-effect="fadeInLeft">
-                                        <div class="timeline-entry-inner">
-
-                                            <div class="timeline-icon color-1">
-                                                <i class="icon-pen2"></i>
-                                            </div>
-
-                                            <div class="timeline-label">
-                                                <h2><a href="#">Secondary School Certificate (S.S.C) </a>
-                                                    <span>(2013)</span>
-                                                </h2>
-                                                <h5>Kalta Avoya Charan High School, Manikganj, Bangladesh. <a
-                                                        href="https://www.sohopathi.com/kalta-avoya-charan-high-school/ "
-                                                        target="_blank">Click here</a></h5>
-                                            </div>
-                                        </div>
-                                    </article>
+                                        </article>
+                                    {% endfor %}
 
                                 </div>
                             </div>
@@ -282,32 +226,15 @@
                                             <div class="timeline-label">
                                                 <h3>Published:</h3>
                                                 <ol style="text-align:justify">
-                                                    <li>
-                                                        Hasan, J., Dristy, E. Y., Anjumanara, R., <strong>Mondal,
-                                                            P.</strong>, Hoque, M. S., Hossain, M. A. R. & Shahjahan, D.
-                                                        M. (2023). Dried fish more prone to microplastics contamination
-                                                        over fresh fish - higher potential of trophic transfer to human
-                                                        body. Ecotoxicology and Environmental Safety, 250 (2023),
-                                                        114510. <a href="https://doi.org/10.1016/j.ecoenv.2023.114510"
-                                                            target="_blank">see more</a>
-                                                    </li><br>
-                                                    <li>Hoque, M. S., Tamanna, F., Hasan, M. M., Al Banna, M. H.,
-                                                        <strong>Mondal, P.</strong>, Prodhan, M. D. H., Rahman, M. Z. &
-                                                        van Brakel, M. L. (2022). Probabilistic public health risks
-                                                        associated with pesticides and heavy metal exposure through
-                                                        consumption of common dried fish in coastal regions of
-                                                        Bangladesh. Environmental Science and Pollution Research,
-                                                        29(14), 20112–20127. <a
-                                                            href="https://doi.org/10.1007/s11356-021-17127-9"
-                                                            target="_blank">see more</a>
-                                                    </li><br>
-                                                    <li>Al Banna, M. H., Tamanna, F., Hasan, M. M., <strong>Mondal,
-                                                            P.</strong>, Hossain, M. B., Chakma, S., Jaman, M. N. &
-                                                        Khan, M. S. I. (2022). Nutritional, microbial and other quality
-                                                        aspects of common dried fish from different commercial fish
-                                                        drying centers in Bangladesh. Heliyon, 8 (10), e10830. <a
-                                                            href="https://doi.org/10.1016/j.heliyon.2022.e10830"
-                                                            target="_blank">see more</a> </li>
+                                                    {% for publication in publications %}
+                                                        {% if publication.publication_type == 'P'%}
+                                                            <li>
+                                                                {{publication.publication_details|safe}}
+                                                                <a href="{{publication.publication_url}}"
+                                                                    target="_blank">see more</a>
+                                                            </li>
+                                                        {% endif %}
+                                                    {% endfor %}
                                                 </ol>
                                             </div>
                                         </div>
@@ -322,34 +249,14 @@
                                             <div class="timeline-label">
                                                 <h3>Upcoming:</h3>
                                                 <ol style="text-align:justify">
-                                                    <li>
-                                                        Chakma, S., Rahman, M. A., <strong>Mondal, P.</strong>, Ullah M.
-                                                        R., Hoque, M. S., Bhowmik, S., Rubel, M. R. I., Debnath, S. &
-                                                        Mali, S. K. (2022). Evaluation of sensory, biochemical, and
-                                                        microbial quality of fermented shrimp paste product during
-                                                        long-term cold storage. Food Research. Article accepted for
-                                                        publication <strong>(In final revision).</strong>
-                                                    </li><br>
-                                                    <li>
-                                                        ‘Elucidating the Extent, Nature, and Potential Sources of
-                                                        Microplastic in the Bay of Bengal Fish: Insights from
-                                                        Multivariate Statistics and FTIR Spectroscopy’. Target journal:
-                                                        Hazardous materials. <strong>(Contributed as Leading author,
-                                                            will be submitted soon).</strong>
-                                                    </li><br>
-                                                    <li>
-                                                        ‘Public health risks associated with chemical contamination
-                                                        (pesticide and heavy metals) in freshwater and marine water
-                                                        sourced dried fish.’ Target journal: Hygiene and Environmental
-                                                        Health Advances. <strong>(Contributed as Second author, will be
-                                                            submitted soon).</strong>
-                                                    </li><br>
-                                                    <li>
-                                                        ‘Effect of Selected Probiotic Bacterial Strains on Growth,
-                                                        Nutrition and Frozen Storage Shelf-Life of Nile Tilapia
-                                                        (Oreochromis niloticus) Raised in Aquaria.’ <strong>(Contributed
-                                                            as Third author, will be submitted soon).</strong>
-                                                    </li>
+                                                    
+                                                    {% for publication in publications %}
+                                                        {% if publication.publication_type == 'U'%}
+                                                            <li>
+                                                                {{publication.publication_details|safe}}
+                                                            </li>
+                                                        {% endif %}
+                                                    {% endfor %}
                                                 </ol>
                                             </div>
                                         </div>
@@ -382,111 +289,11 @@
 
                                             <div class="timeline-label">
                                                 <ol style="text-align:justify">
+                                                    {% for conference in conferences %}
                                                     <li>
-                                                        <strong>Mondal, P.</strong>, Hoque, M. S., Shahjahan, M.,
-                                                        (2023). Microplastic Contamination in Marine Fresh Fish From the
-                                                        Bay of Bengal: a Seafood Safety Concern in Bangladesh. Abstract
-                                                        accepted for oral presentation (book page 81,
-                                                        FSB-YFSC2023-PH-05). Fisheries Society of Bangladesh-Young
-                                                        Fisheries Scientists Conference 2023. Organized by Fisheries
-                                                        Society of Bangladesh (FSB) on March 11.
-                                                    </li><br>
-                                                    <li>
-                                                        Hoque, M. S., <strong>Mondal, P.</strong>, Shahjahan, M.,
-                                                        (2023). Mps in Marine Fishes from the Bay of Bengal: a Concern
-                                                        for the Sustainable Marine Fisheries in Bangladesh. Abstract
-                                                        accepted for poster presentation (book page 106, PP-EP-13).
-                                                        International Symposium on Healthy Mangroves And Sustainable
-                                                        Fisheries for Climate Resilient Coastal Community in Bangladesh.
-                                                        Organized by Fisheries and Marine Resource Technology Discipline
-                                                        (FMRT), Khulna University on March 1-3.
-                                                    </li><br>
-                                                    <li>
-                                                        Hoque, M. S., <strong>Mondal, P.</strong>, Shahjahan, M.,
-                                                        (2023). Microplastic in Marine Fish Species from the Bay of
-                                                        Bengal: a Seafood Safety Concern in Bangladesh. Abstract
-                                                        accepted for poster presentation (book page 38, P-15). 5th
-                                                        International Scientific Conference on Food Safety and Health
-                                                        (ICFSH, 2023). Organized by Bangladesh Society for Safe Food
-                                                        (BSSF) on February 18.
-                                                    </li><br>
-
-                                                    <li>
-                                                        Hoque, M. S., Tamanna, F., Hasan, M. M., Al Banna, M. H.,
-                                                        <strong>Mondal, P.</strong>, Prodhan, M. D. H., Rahman, M. Z.
-                                                        and Brakel, M. L. V. (2022). Pesticides and heavy metals in
-                                                        dried fish: a public health concerns associated with consumption
-                                                        of common dried fish in coastal area of Bangladesh. Abstract
-                                                        accepted for oral presentation (Session-7). 9th Biennial
-                                                        Fisheries Conference and Research Fair 2022. Organized by
-                                                        Bangladesh Fisheries Research Forum (BFRF) during May 28-29.
-                                                        Awarded for Best Oral Presentation Award.
-                                                    </li><br>
-                                                    <li>
-                                                        Hoque, M. S., Tamanna, F., Hasan, M. M., Al Banna, M. H.,
-                                                        <strong>Mondal, P.</strong>, Prodhan, M. D. H. and Rahman, M. Z.
-                                                        (2021). Public health risks associated with pesticides and heavy
-                                                        metal exposure through consumption of common dried fish in
-                                                        coastal regions of Bangladesh. Online oral presentation
-                                                        (Session-3, 38). 2nd Biennial Conference of Fisheries Society of
-                                                        Bangladesh (FSB, 2021). Organized by the Fisheries Society of
-                                                        Bangladesh (FSB) on December 25-26.
-                                                    </li><br>
-                                                    <li>
-                                                        Hoque, M. S., Tamanna, F., Hasan, M. M., Al Banna, M. H.,
-                                                        <strong>Mondal, P.</strong>, Prodhan, M. D. H., Rahman, M. Z.
-                                                        (2021). Assessment of public health risk associated with
-                                                        pesticides and heavy metal content in common dried fish from
-                                                        different coastal regions of Bangladesh. Abstract accepted (book
-                                                        page 18, O7) for oral presentation (Session-2). 4th National
-                                                        Scientific Conference on Food Safety and Health (NCFSH, 2021).
-                                                        Organized by the Bangladesh Society for Safe Food (BSSF) on
-                                                        October 29.
-                                                    </li><br>
-                                                    <li>
-                                                        Hasan, M. B., Hoque, M. S., Tamanna, F., Hasan, M. M.,
-                                                        <strong>Mondal, P.</strong> and Khan, M. S. I. (2021).
-                                                        Nutritional and microbial quality of common dried fish from
-                                                        different commercial fish drying centers in Bangladesh. Abstract
-                                                        accepted (book page 20, O11) for oral presentation (Session-3).
-                                                        4th National Scientific Conference on Food Safety and Health
-                                                        (NCFSH, 2021). Organized by Bangladesh Society for Safe Food
-                                                        (BSSF) on October 29.
-                                                    </li><br>
-
-                                                    <li>
-                                                        Hoque, M. S., <strong>Mondal, P.</strong>, Tamanna, F., Hasan,
-                                                        M. M. and Al Banna, M. H. (2021). Changes in organoleptic
-                                                        characteristics of common dried fish during consecutive storage
-                                                        period. Abstract accepted (book page 30, P19) for poster
-                                                        presentation. 4th National Scientific Conference on Food Safety
-                                                        and Health (NCFSH, 2021). Organized by Bangladesh Society for
-                                                        Safe Food (BSSF) on October 29.
-                                                    </li><br>
-                                                    <li>
-                                                        Hoque, M. S., Hasan, M. M., Tamanna, F., <strong>Mondal,
-                                                            P.</strong>, Al Banna, M. H., Rahman, M. Z. and Prodhan, M.
-                                                        D. H. (2021). Evaluation of nutritional, pesticides and heavy
-                                                        metal content in common dried fish from different regions:
-                                                        risk-benefit of dried fish consumption in Bangladesh. Abstract
-                                                        accepted (book page 31, P21) for poster presentation. 4th
-                                                        National Scientific Conference on Food Safety and Health (NCFSH,
-                                                        2021). Organized by the Bangladesh Society for Safe Food (BSSF)
-                                                        on October 29.
-                                                    </li><br>
-                                                    <li>
-                                                        Participated in the closing workshop on “Post-harvest losses,
-                                                        Supply and Value Chain Analysis of Fisheries Sub-sector in
-                                                        Bangladesh”, Funded by BARC/PBRG, PIU-NATP-2. Organized by dept.
-                                                        of Basic Science, Faculty of Animal Science and Veterinary
-                                                        Medicine at PSTU on 1st September 2021.
-                                                    </li><br>
-                                                    <li>
-                                                        Participated in “Symposium on Communication for Development
-                                                        (C4D) Curriculum and Research”, funded by UNICEF and organized
-                                                        by Patuakhali Science and Technology University (PSTU) on 26th
-                                                        January 2020.
+                                                        {{conference.conference_details|safe}}
                                                     </li>
+                                                    {% endfor %}
                                                 </ol>
                                             </div>
                                         </div>
@@ -520,26 +327,11 @@
                                             <div class="timeline-label">
                                                 <h3>Training:</h3>
                                                 <ol style="text-align:justify">
-                                                    <li>
-                                                        "Applied RT-PCR and Microbiology for Food and Health"
-                                                        (13/11/2022 – 17/11/2022)<br>
-                                                        Host: Microbiology and Molecular Biology department at Colonel
-                                                        Malek Medical College, Manikganj, Bangladesh.
-                                                    </li><br>
-                                                    <li>
-                                                        “Basic ArcGIS Training for Beginners and Professionals”
-                                                        (01/11/2021 – 01/12/2021)<br>
-                                                        Host: Environmental Science and Disaster Management Club, PSTU.
-
-                                                    </li><br>
-                                                    <li>
-                                                        “Overview and Safe Use of Laboratory Ventilation Equipment
-                                                        (Laminar Air Flow, Biosafety Cabinets, and Fume Hood)”
-                                                        (10/04/2019)<br>
-                                                        Host: ESCO (Biological Safety Institute) at Patuakhali Science
-                                                        and Technology University (PSTU).
-
-                                                    </li>
+                                                    {% for training in trainings %}
+                                                        {% if training.training_type == 'T' %}
+                                                            {{training.training_details|safe}}
+                                                        {% endif %}
+                                                    {% endfor %}
                                                 </ol>
                                             </div>
                                         </div>
@@ -554,74 +346,11 @@
                                             <div class="timeline-label">
                                                 <h3>Skill:</h3>
                                                 <ol style="text-align:justify">
-                                                    <li>
-                                                        <strong>Language Skills:</strong>
-                                                        <ul>
-                                                            <li>
-                                                                Mother tongue: Bengali
-                                                            </li>
-                                                            <li>
-                                                                Second language: English (IELTS band score 7.0)
-                                                            </li>
-                                                        </ul>
-                                                    </li><br>
-                                                    <li>
-                                                        <strong>Laboratory Skills:</strong>
-                                                        <ul>
-                                                            <li>
-                                                                Field survey and sample collection
-                                                            </li>
-                                                            <li>
-                                                                Microplastic assessment
-                                                            </li>
-                                                            <li>
-                                                                FTIR analysis
-                                                            </li>
-                                                            <li>
-                                                                Proximate analysis (protein, lipid, ash, moisture)
-                                                            </li>
-                                                            <li>
-                                                                Microbial culture (nutrient, EMB, XLD, TCBS agar)
-                                                            </li>
-                                                            <li>
-                                                                RT-PCR test
-                                                            </li>
-                                                            <li>
-                                                                Fish processing and preservation
-                                                            </li>
-                                                            <li>
-                                                                Sensory test
-                                                            </li>
-                                                            <li>
-                                                                Fisheries product development (fish powder, nga-pi,
-                                                                shidhal, fish ball, fish burger, sausage, pickle etc.)
-                                                            </li>
-                                                        </ul>
-                                                    </li><br>
-                                                    <li>
-                                                        <strong>Software Skills:</strong>
-                                                        <ul>
-                                                            <li>
-                                                                Microsoft
-                                                            </li>
-                                                            <li>
-                                                                SPSS v26.00
-                                                            </li>
-                                                            <li>
-                                                                ArcGIS (ArcMap 10.8)
-                                                            </li>
-                                                            <li>
-                                                                Origin 2021
-                                                            </li>
-                                                            <li>
-                                                                JMP statistical software
-                                                            </li>
-                                                            <li>
-                                                                Mendeley
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-
+                                                    {% for training in trainings %}
+                                                        {% if training.training_type == 'S' %}
+                                                            {{training.training_details|safe}}
+                                                        {% endif %}
+                                                    {% endfor %}
                                                 </ol>
                                             </div>
                                         </div>
@@ -654,48 +383,9 @@
 
                                             <div class="timeline-label">
                                                 <ol style="text-align:justify">
-                                                    <li>
-                                                        “Best Oral Presentation Award”, Awarding institution: 9th
-                                                        Biennial Fisheries Conference and Research Fair 2022.
-                                                    </li><br>
-                                                    <li>
-                                                        “National Science and Technology (NST) Fellowship Award
-                                                        (2021-2022)”, Awarding institution: Ministry of Science and
-                                                        Technology, People's Republic of Bangladesh.
-                                                    </li><br>
-                                                    <li>
-                                                        President, ANUSHILON, (January 2021 – January 2023). A
-                                                        multifaceted (debating, quizzing, career talks, language
-                                                        learning, etc.) non-political organization operated by the
-                                                        students of the faculty of Fisheries at Patuakhali Science and
-                                                        Technology University.
-                                                    </li><br>
-                                                    <li>
-                                                        “Dean’s Merit Award, 2019”, Awarding institution: Faculty of
-                                                        Fisheries, Patuakhali Science and Technology University.
-                                                    </li><br>
-                                                    <li>
-                                                        Vice-President, ANUSHILON, (2019-2020)
-                                                    </li><br>
-                                                    <li>
-                                                        Vice-President and Cultural Secretary of SANATAN SANGHA
-                                                        (2018-2019), a religious and cultural organization operated by
-                                                        the students who believe in and practice Hinduism.
-                                                    </li><br>
-                                                    <li>
-                                                        Member Secretary, ANUSHILON (2018-2019)
-                                                    </li><br>
-                                                    <li>
-                                                        Member and Vice-Captain of the Cricket Champion Team (FISHERIES)
-                                                        'Inter-Faculty Cricket Tournament-2019', Department of Physical
-                                                        Education, PSTU.
-                                                    </li><br>
-                                                    <li>
-                                                        Member of the Football Champion Team (FISHERIES) 'Inter-Faculty
-                                                        Football Tournament-2016', Department of Physical Education,
-                                                        PSTU.
-                                                    </li>
-
+                                                    {% for award in awards %}
+                                                        <li>{{award.award_details|safe}}</li>
+                                                    {% endfor %}
                                                 </ol>
                                             </div>
                                         </div>
@@ -727,12 +417,7 @@
                                             </div>
 
                                             <div class="timeline-label">
-                                                <object data="{% static 'core2\certificate.pdf' %}"
-                                                    type="application/pdf" width="100%" height="500px">
-                                                    <p>Unable to display PDF file. <a
-                                                            href="{% static 'core2\certificate.pdf' %}">Download</a>
-                                                        instead.</p>
-                                                </object>
+                                                <iframe src="{{ abouts.0.certifications.url }}" width="100%" height="600px"></iframe>
                                             </div>
                                         </div>
                                     </article>
@@ -761,7 +446,7 @@
                                         <i class="icon-globe-outline"></i>
                                     </div>
                                     <div class="colorlib-text">
-                                        <p><a href="#">pronoyfstmondal360@gmail.com</a></p>
+                                        <p><a href="#">{{abouts.0.email}}</a></p>
                                     </div>
                                 </div>
 
@@ -771,7 +456,7 @@
                                         <i class="icon-map"></i>
                                     </div>
                                     <div class="colorlib-text">
-                                        <p>Bijoynagar, Harirampur, Manikganj, Dhaka, Bangladesh</p>
+                                        <p>{{abouts.0.permanent_address}}</p>
                                     </div>
                                 </div>
 
@@ -781,7 +466,7 @@
                                         <i class="icon-phone"></i>
                                     </div>
                                     <div class="colorlib-text">
-                                        <p><a href="tel://">+8801797959368</a></p>
+                                        <p><a href="tel://">{{abouts.0.mobile}}</a></p>
                                     </div>
                                 </div>
                             </div>

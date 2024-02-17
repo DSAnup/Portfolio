@@ -25,13 +25,13 @@ class AboutAdmin(CustomAddPermissionMixin, CustomSaveModelMixin, CustomGetQueryS
         (
             'Basic Information',
             {
-                'fields': ['full_name', 'designation', 'mobile', 'title', 'email', 'present_address', 'permanent_address']
+                'fields': ['full_name', 'designation', 'mobile', 'title', 'email', 'present_address', 'permanent_address', 'about_me']
             }
          ),
          (
             'Advanced Information',
             {
-                'fields': ['about_me', 'profile_picture', 'full_cv', 'title_background']
+                'fields': ['key_point', 'profile_picture', 'full_cv', 'title_background', 'certifications']
             }
          ),
     )  
@@ -41,7 +41,7 @@ class AboutAdmin(CustomAddPermissionMixin, CustomSaveModelMixin, CustomGetQueryS
 @admin.register(SocialPlatform)
 class SocialPlatformAdmin(CustomAddPermissionMixin, CustomSaveModelOrderNumberMixin, CustomGetQuerySetMixin, RemoveExistingFilesMixin, SwitchOrderMixin, admin.ModelAdmin):
     
-    fields = ['social_platform_name', 'social_platform_icon', 'social_platform_url']
+    fields = ['social_platform_name', 'social_platform_icon', 'social_platform_url', 'social_platform_iconname']
     list_display = ['social_platform_name', 'view_url']
 
     def view_url(self, obj):
@@ -90,12 +90,18 @@ class CertificationAdmin(CustomAddPermissionMixin, CustomSaveModelOrderNumberMix
 class PublicationAdmin(CustomAddPermissionMixin, CustomSaveModelOrderNumberMixin, CustomGetQuerySetMixin, CustomTextEditor, SwitchOrderMixin, admin.ModelAdmin):
     
     fields = ['publication_type', 'publication_url', 'publication_details']
-    list_display = ['publication_type', 'publication_url']
+    list_display = ['publication_type', 'short_text_fields', 'publication_url']
     
     def view_url(self, obj):
         return format_html('<a href="{}" target="_blank">Click Here</a>'.format(obj.publication_url))
     
     view_url.short_description = "Publication Url"
+
+    
+    def short_text_fields(self, obj):
+        return CustomShortTextFields.short_text_field(obj, 'publication_details', 50)
+    
+    short_text_fields.short_description = 'Publication Details'
 
 
 @admin.register(Conference)
@@ -105,7 +111,7 @@ class ConferenceAdmin(CustomAddPermissionMixin, CustomSaveModelOrderNumberMixin,
     list_display = ['short_text_fields']
 
     def short_text_fields(self, obj):
-        return CustomShortTextFields.short_text_field(obj, 'conference_details', 150)
+        return CustomShortTextFields.short_text_field(obj, 'conference_details', 70)
     
     short_text_fields.short_description = 'Conferenece Details'
 
@@ -129,7 +135,7 @@ class AwardAdmin(CustomAddPermissionMixin, CustomSaveModelOrderNumberMixin, Cust
     list_display = ['short_text_fields']
 
     def short_text_fields(self, obj):
-        return CustomShortTextFields.short_text_field(obj, 'award_details', 150)
+        return CustomShortTextFields.short_text_field(obj, 'award_details', 50)
     
     short_text_fields.short_description = 'Award Details'
 
