@@ -45,7 +45,7 @@
         </div>
         <div class="row">
             <div class="offset-md-3 col-md-6 text-center">
-                {% for social in socialplatforms%}
+                {% for social in socialplatforms %}
                 <a href="{{social.social_platform_url}}" target="_blank" class="btn btn-sm btn-outline-dark mr-2 mt-3"><img
                         class="social-image mr-1" src="{{social.social_platform_icon.url}}">{{social.social_platform_name}}</a>
                 {% endfor %}
@@ -69,10 +69,8 @@
             <div class="row">
                 
                 <div class="offset-md-1 col-md-10">
-                    <div class="card ai-header-card">
-                        <div class="row key_responsibilities">
-                            {{ abouts.0.key_point|safe }}
-                        </div>
+                    <div class="row key_responsibilities">
+                        {{ abouts.0.key_point|safe }}
                     </div>
                 </div>
             </div>
@@ -93,9 +91,13 @@
                         <span>Experience</span>
                         <span class="float-right mr-2 mt-md-0 mt-3 mb-md-0 mb-2">
                             <small>↪ View full profile on</small>
-                            <a href="https://www.linkedin.com/in/DSAnup" target="_blank" class="btn btn-sm btn-primary">
-                                <i class="fab fa-linkedin-in fa-xs mr-2"></i>LinkedIn
-                            </a>
+                            {% for social in socialplatforms %}
+                                {% if social.social_platform_name == 'LinkedIn' %}
+                                    <a href="{{social.social_platform_url}}" target="_blank" class="btn btn-sm btn-primary">
+                                        <i class="fab fa-linkedin-in fa-xs mr-2"></i>LinkedIn
+                                    </a>
+                                {% endif %}
+                            {% endfor %}
                         </span>
                     </div>
                 </div>
