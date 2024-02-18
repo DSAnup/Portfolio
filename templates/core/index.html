@@ -35,11 +35,11 @@
 
     <div class="container">
         <div class="row">
-            <div class="offset-md-3 col-md-6 text-center">
+            <div class="offset-md-3 col-md-6 text-center key_responsibilities">
                 <img src="{{ abouts.0.profile_picture.url }}" class="img-fluid" alt="{{abouts.0.full_name}}">
                 <h2 class="myname">{{ abouts.0.title }}</h2>
                 <h5 class="designation">{{abouts.0.designation}}</h5>
-                <p>{{abouts.0.about_me|safe}}</p>
+                {{abouts.0.about_me|safe}}
                 <hr class="hr">
             </div>
         </div>
@@ -52,6 +52,35 @@
             </div>
         </div>
     </div>
+
+     <!-- Education -->
+     <section>
+        <div class="container">
+
+            <!-- Title -->
+            <div class="row">
+                <div class="offset-md-1 col-md-10">
+                    <div class="ai-section-title">
+                        <span>Key Responsibilities</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                
+                <div class="offset-md-1 col-md-10">
+                    <div class="card ai-header-card">
+                        <div class="row key_responsibilities">
+                            {{ abouts.0.key_point|safe }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+    </section>
 
     <!-- Experience -->
     <section>
@@ -97,7 +126,6 @@
                                             {% endif %}
                                         {% endif %}
                                     </span><br>
-                                    {{experience.experience_details|safe|slice:"255"}}<br>
                                     <a class="experience-details" data-toggle="modal" data-target="#myModal{{forloop.counter}}">Read
                                         More</a>
                                     <div id="myModal{{forloop.counter}}" class="modal fade" role="dialog">
@@ -144,7 +172,6 @@
                                             {% endif %}
                                         {% endif %}
                                     </span><br>
-                                    {{experience.experience_details|safe|slice:"255"}}<br>
                                     <a class="experience-details" data-toggle="modal" data-target="#myModal{{forloop.counter}}">Read
                                         More</a>
                                     <div id="myModal{{forloop.counter}}" class="modal fade" role="dialog">
@@ -286,10 +313,6 @@
                             {% for certificate in certifications %}
                             <div class="col-md-3">
                                 <div class="card ai-project-card">
-                                    <a href="{{certificate.certification_url}}" target="_blank">
-                                        <img class="ai-project-image"
-                                            src="{{certificate.certification_image.url}}">
-                                    </a>
                                     <div class="card-body">
                                         <h4>{{certificate.certification_title}}</h4>
                                         <div class="ai-project-long-description">

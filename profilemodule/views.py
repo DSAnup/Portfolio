@@ -26,29 +26,6 @@ def index(request):
         }
         return render(request, "core/index.html", data)
     
-    elif host_name == '127.0.0.1:8000':
-        localuser = 'pronoy'
-        user = User.objects.get(username=localuser)
-        abouts = About.objects.filter(created_by = user.id)
-        socialplatforms = SocialPlatform.objects.filter(created_by = user.id).order_by('order_number')
-        experiences = Experience.objects.filter(created_by = user.id).order_by('order_number')
-        educations = Education.objects.filter(created_by = user.id).order_by('order_number')
-        publications = Publication.objects.filter(created_by = user.id).order_by('order_number')
-        conferences = Conference.objects.filter(created_by = user.id).order_by('order_number')
-        trainings = Training.objects.filter(created_by = user.id).order_by('order_number')
-        awards = Award.objects.filter(created_by = user.id).order_by('order_number')
-        data = {
-            'abouts': abouts,
-            'socialplatforms': socialplatforms,
-            'experiences': experiences,
-            'conferences': conferences,
-            'trainings': trainings,
-            'educations': educations,
-            'publications': publications,
-            'awards': awards,
-        }
-        return render(request, "core/index2.html", data)
-    
     elif host_name == 'pronoymondal.me':
         localuser = 'pronoy'
         user = User.objects.get(username=localuser)
@@ -88,6 +65,5 @@ def index(request):
             'skills': skills,
             'certifications': certifications,
             'educations': educations,
-            'hostname': host_name,
         }
         return render(request, "core/index.html", data)

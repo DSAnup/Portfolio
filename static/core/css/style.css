@@ -22,6 +22,11 @@ body {margin:0;font-family:Aldrich}
 .modal-body ul>li>p{
   font-size: 12px;
 }
+
+.modal-body ul>li{
+  font-size: 12px;
+}
+
 .w3-light-grey {
     border: 1px solid #ccc!important;
 }
@@ -61,9 +66,12 @@ body {margin:0;font-family:Aldrich}
   width: 250px
 }
 .ai-project-card{
-  min-height: 375px;
+  min-height: 170px;
   margin:2px;
 }
 .ai-project-card .card-body h4{
   font-size: 19px;
+}
+.key_responsibilities p {
+  font-size: 14px;
 }
