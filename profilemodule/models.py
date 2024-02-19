@@ -193,3 +193,14 @@ class Award(models.Model):
 
     def __str__(self):
         return self.award_details[:10]
+
+class MyMessage(models.Model):
+
+    name = models.CharField(max_length=100)
+    subject = models.CharField(max_length=255, blank=True, null=True)
+    host_name = models.CharField(max_length=150, blank=True, null=True)
+    email = models.EmailField()
+    message = models.TextField()
+    read_status = models.SmallIntegerField(default=0)
+    read_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)

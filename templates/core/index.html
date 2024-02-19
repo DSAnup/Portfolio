@@ -32,6 +32,13 @@
             <a class="p-2 text-dark" href="{{abouts.0.full_cv.url}}" target="_blank">Download CV</a>
         </nav>
     </div>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success" id="MessageInfo">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
 
     <div class="container">
         <div class="row">
@@ -361,22 +368,24 @@
 
                 <div class="row text-center" id="ai-header">
                     <div class="ai-offset-md-half col-md-11">
-                        <form action="">
+                        <form method="post" action="{% url 'send_message' %}">
+                            {% csrf_token %}
                             <div class="row">
+                                <input type="hidden" value="{{host_name}}" name="host_name">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="name" placeholder="Name">
+                                        <input type="text" class="form-control" required name="name" placeholder="Name">
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="email" placeholder="Email">
+                                        <input type="text" class="form-control" required name="email" placeholder="Email">
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="subject" placeholder="Subject">
+                                        <input type="text" class="form-control" required name="subject" placeholder="Subject">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <textarea name="message" id="message" cols="30" rows="7" class="form-control"
+                                        <textarea name="message" id="message" required cols="30" rows="7" class="form-control"
                                             placeholder="Message"></textarea>
                                     </div>
                                     <div class="form-group">
@@ -414,6 +423,7 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
+    <script src="{%static 'core/js/custom.js' %}"></script>
     <script src="{%static 'core/js/jquery.min.js' %}"></script>
 
     <script src="{%static 'core/js/bootstrap.min.js' %}"></script>
