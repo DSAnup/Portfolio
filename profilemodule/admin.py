@@ -160,10 +160,10 @@ class MyMessageAdmin(CustomAddPermissionMixin, HideChangeViewButtonMixin, admin.
         queryset = super().get_queryset(request)
         if not request.user.is_superuser:
             if request.user.username == 'anup':
-                queryset = queryset.filter(host_name='anupmondal.me')
+                queryset = queryset.filter(host_name='anupmondal.me').order_by('read_status')
                 return queryset 
             else:
-                queryset = queryset.filter(host_name='pronoymondal.me')
+                queryset = queryset.filter(host_name='pronoymondal.me').order_by('read_status')
                 return queryset 
         else:
             return queryset 
