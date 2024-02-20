@@ -155,3 +155,15 @@ class MyMessageAdmin(CustomAddPermissionMixin, CustomGetQuerySetMixin, HideChang
         else:
             return format_html('<button type="button" class="btn btn-info"  onclick="update_read_status(this)" data-id="{}">UnRead</button>', obj.id)
     read_status2.short_description = 'Read Status'
+
+    def get_queryset(self, request):
+        queryset = super().get_queryset(request)
+        if not request.user.is_superuser:
+            if request.user.username == 'anup':
+                queryset = queryset.filter(host_name='anupmondal.me')
+                return queryset 
+            else:
+                queryset = queryset.filter(host_name='pronoymondal.me')
+                return queryset 
+        else:
+            return queryset 
