@@ -143,7 +143,7 @@ class AwardAdmin(CustomAddPermissionMixin, CustomSaveModelOrderNumberMixin, Cust
 
 
 @admin.register(MyMessage)
-class MyMessageAdmin(CustomAddPermissionMixin, CustomGetQuerySetMixin, HideChangeViewButtonMixin, admin.ModelAdmin):
+class MyMessageAdmin(CustomAddPermissionMixin, HideChangeViewButtonMixin, admin.ModelAdmin):
     fields =['name', 'email', 'message', 'subject']
     list_display = ['name', 'email', 'message', 'subject','read_status2']
     list_display_links = ['read_status2']
