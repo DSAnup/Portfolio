@@ -1,3 +1,5 @@
+import json
+from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
 from profilemodule.models import *
@@ -85,3 +87,15 @@ def send_message(request):
             form.save()
             messages.add_message(request, messages.INFO, 'Message Send Successfully.')
         return redirect(index)
+    
+def update_data(request):
+    if request.method == 'POST':
+        json_data = json.loads(request.body)
+        id = json_data.get('pk')
+        read_status = json_data.get('read_status')
+        obj = MyMessage.objects.get(pk=id)
+        obj.read_status = read_status
+        obj.save()
+        return JsonResponse({'success': True, 'pk': json_data})
+    else:
+        return JsonResponse({'success': False, 'error': 'Invalid request method'})

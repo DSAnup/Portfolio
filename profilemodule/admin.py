@@ -1,6 +1,8 @@
 from django.contrib import admin
+from django.urls import reverse
 from profilemodule.models import *
 from .mixins import *
+from django.template.response import TemplateResponse
 
 admin.site.site_header = 'Profile Administration Login'
 
@@ -139,3 +141,17 @@ class AwardAdmin(CustomAddPermissionMixin, CustomSaveModelOrderNumberMixin, Cust
     
     short_text_fields.short_description = 'Award Details'
 
+
+@admin.register(MyMessage)
+class MyMessageAdmin(CustomAddPermissionMixin, CustomGetQuerySetMixin, HideChangeViewButtonMixin, admin.ModelAdmin):
+    fields =['name', 'email', 'message', 'subject']
+    list_display = ['name', 'email', 'message', 'subject','read_status2']
+    list_display_links = ['read_status2']
+    readonly_fields =['name', 'email', 'message', 'subject']
+
+    def read_status2(self, obj):
+        if obj.read_status:
+            return format_html('<button type="button" class="btn btn-success">Read</button>')
+        else:
+            return format_html('<button type="button" class="btn btn-info"  onclick="update_read_status(this)" data-id="{}">UnRead</button>', obj.id)
+    read_status2.short_description = 'Read Status'

@@ -201,6 +201,9 @@ class MyMessage(models.Model):
     host_name = models.CharField(max_length=150, blank=True, null=True)
     email = models.EmailField()
     message = models.TextField()
-    read_status = models.SmallIntegerField(default=0)
+    read_status = models.BooleanField(default=False)
     read_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name

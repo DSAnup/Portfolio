@@ -23,6 +23,7 @@
 
 {% block extrahead %}
 {{ block.super }}
+    <script type="text/javascript" src="{% static 'js/admin_toggle.js' %}"></script>
 {{ media.js }}
 {% endblock %}
 {% if not is_popup %}

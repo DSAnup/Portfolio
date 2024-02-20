@@ -188,3 +188,14 @@ class RemoveExistingFilesMixinAbout:
                 # Delete the old image file
                 if os.path.isfile(old_full_cv.path):
                     os.remove(old_full_cv.path)
+
+class HideChangeViewButtonMixin:
+    def change_view(self, request, object_id, form_url='', extra_context=None):
+        extra_context = extra_context or {}
+        extra_context['show_save'] = False  # Hide the save button
+        extra_context['show_save_and_continue'] = False  # Hide the save and continue editing button
+        extra_context['show_delete_link'] = False  # Hide the delete button
+        extra_context['show_save_and_add_another'] = False  # Hide the save and add another button
+        extra_context['show_delete'] = False  # Hide delete button
+
+        return super().change_view(request, object_id, form_url, extra_context=extra_context)
